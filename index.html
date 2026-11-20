@@ -1,0 +1,720 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Road to Project FM 2027</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: satu kolom lebar, header dengan lintasan program, KPI datar, panel minggu fokus, lalu grafik dan pencapaian */
+:root{
+  --bg:#edf0f7; --surface:#ffffff; --ink:#0a1f4d; --ink2:#46557a; --muted:#7280a0;
+  --line:#d9e0ee; --grid:#e6ebf4; --plan:#cfd8ea; --plan2:#b4c1da;
+  --navy:#0a1f4d; --navy2:#14347c;
+  --s1:#fc4c02; --accent:#14347c;
+  --ok:#12a150; --ok-t:#0b7a3b; --near:#f5a700; --near-t:#8a5a00; --miss:#e0342f; --miss-t:#bf1f1b; --over:#6d4adf; --over-t:#5a37c4;
+  --h-sky:#1c5fd1; --h-mint:#0e9f7e; --h-peach:#f2a100; --h-violet:#5a3fd0; --h-rose:#e0205f; --h-sand:#b8870f;
+  --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#070e22; --surface:#0f1a38; --ink:#eaf0ff; --ink2:#a9b8d8; --muted:#7587ab;
+  --line:#1d2c52; --grid:#16224a; --plan:#22345f; --plan2:#33497f;
+  --navy:#0a1f4d; --navy2:#14347c;
+  --s1:#ff6a2b; --accent:#6ea0ff;
+  --ok:#2fc46f; --ok-t:#4ddc8a; --near:#ffb81f; --near-t:#ffc94d; --miss:#ff5a54; --miss-t:#ff8a85; --over:#9b7bff; --over-t:#b8a2ff;
+  --h-sky:#4d8dff; --h-mint:#1fc29a; --h-peach:#ffb81f; --h-violet:#9b86ff; --h-rose:#ff5c8e; --h-sand:#e0a030;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#070e22; --surface:#0f1a38; --ink:#eaf0ff; --ink2:#a9b8d8; --muted:#7587ab;
+  --line:#1d2c52; --grid:#16224a; --plan:#22345f; --plan2:#33497f;
+  --navy:#0a1f4d; --navy2:#14347c;
+  --s1:#ff6a2b; --accent:#6ea0ff;
+  --ok:#2fc46f; --ok-t:#4ddc8a; --near:#ffb81f; --near-t:#ffc94d; --miss:#ff5a54; --miss-t:#ff8a85; --over:#9b7bff; --over-t:#b8a2ff;
+  --h-sky:#4d8dff; --h-mint:#1fc29a; --h-peach:#ffb81f; --h-violet:#9b86ff; --h-rose:#ff5c8e; --h-sand:#e0a030;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background-color:var(--bg);background-image:radial-gradient(900px 420px at 10% -8%,color-mix(in srgb,var(--h-sky) 11%,transparent),transparent 70%),radial-gradient(700px 360px at 94% -4%,color-mix(in srgb,var(--h-violet) 9%,transparent),transparent 70%);background-repeat:no-repeat;color:var(--ink);font-family:var(--f-body);font-size:14px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 56px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+h1,h2,h3,p{margin:0}
+.mono{font-family:var(--f-mono)}
+.num{font-variant-numeric:tabular-nums}
+.ic{--c:var(--h-sky);width:36px;height:36px;border-radius:11px;display:grid;place-items:center;flex:none;color:var(--c);background:color-mix(in srgb,var(--c) 11%,var(--surface))}
+.ic svg{width:18px;height:18px}
+.ic.sm{width:28px;height:28px;border-radius:9px}.ic.sm svg{width:15px;height:15px}
+.sky{--c:var(--h-sky)}.mint{--c:var(--h-mint)}.peach{--c:var(--h-peach)}.violet{--c:var(--h-violet)}.rose{--c:var(--h-rose)}.sand{--c:var(--h-sand)}
+.hd{display:flex;gap:12px;align-items:flex-start;min-width:0}
+.kh{display:flex;align-items:center;gap:10px}
+.ey{display:flex;align-items:center;gap:10px}
+.sn{display:flex;align-items:center;gap:8px}
+.sn svg{width:16px;height:16px;color:var(--c);flex:none}
+.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* header */
+header{display:flex;flex-direction:column;gap:22px;padding-bottom:6px}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+h1{font-family:var(--f-display);font-weight:800;font-size:clamp(30px,6vw,52px);line-height:1;letter-spacing:-.025em;text-wrap:balance}
+h1 span{background:linear-gradient(90deg,var(--h-sky),var(--h-violet));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.sub{margin-top:10px;color:var(--ink2);max-width:60ch}
+.sync{display:flex;flex-direction:column;align-items:flex-end;gap:6px;min-width:0}
+.btn{font:500 13px var(--f-body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.btn:hover{border-color:var(--s1)}
+.btn:focus-visible,.ibtn:focus-visible{outline:2px solid var(--s1);outline-offset:2px}
+.btn[disabled]{opacity:.6;cursor:progress}
+.sync small{font-size:12px;color:var(--muted);text-align:right;max-width:300px}
+.sync small.err{color:var(--miss-t)}
+
+.track{position:relative;padding-top:26px}
+.segs{display:flex;gap:3px}
+.seg{position:relative;height:6px;border-radius:3px;background:var(--plan);overflow:hidden}
+.seg{background:color-mix(in srgb,var(--c) 20%,var(--plan))}.seg i{position:absolute;inset:0 auto 0 0;background:var(--c);border-radius:3px}
+.seglbl{display:flex;gap:3px;margin-top:6px}
+.seglbl span{font:400 10px var(--f-mono);color:var(--muted);text-align:left;white-space:nowrap}
+.pin{position:absolute;top:0;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:3px;font:500 11px var(--f-mono);color:var(--accent);white-space:nowrap}
+.pin::after{content:"";width:2px;height:12px;background:var(--accent);border-radius:1px}
+.pin.edge-l{transform:none;align-items:flex-start}
+.pin.edge-r{transform:translateX(-100%);align-items:flex-end}
+.pin.edge-l::after{margin-left:0}.pin.edge-r::after{margin-right:0}
+.dates{display:flex;justify-content:space-between;font:400 11px var(--f-mono);color:var(--muted);margin-top:4px}
+
+/* kpi */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.kpi{padding:18px 20px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.kpi+.kpi{border-left:1px solid var(--line)}
+.kpi .v{font-family:var(--f-display);font-weight:700;font-size:30px;line-height:1.1;letter-spacing:-.02em}
+.kpi .v small{font:400 14px var(--f-body);color:var(--muted);letter-spacing:0}
+.kpi .d{font-size:12px;color:var(--ink2)}
+.bar{height:4px;background:var(--plan);border-radius:2px;overflow:hidden;margin-top:2px}
+.bar i{display:block;height:100%;background:var(--s1);border-radius:2px}
+
+/* panels */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:18px;min-width:0}
+.ph{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+h2{font-family:var(--f-display);font-weight:700;font-size:22px;letter-spacing:-.015em;line-height:1.2}
+.ph p{color:var(--ink2);font-size:13px;margin-top:4px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.cols>*{min-width:0}
+
+/* focus week */
+.wknav{display:flex;gap:8px;align-items:center}
+.ibtn{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;display:grid;place-items:center}
+.ibtn:hover{border-color:var(--s1)}
+.ibtn[disabled]{opacity:.35;cursor:default}
+.pill{font:500 12px var(--f-mono);color:var(--ink2);border:1px solid var(--line);border-radius:999px;padding:4px 10px;white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-block:1px solid var(--line)}
+.stat{padding:14px 16px 14px 0;display:flex;flex-direction:column;gap:2px;min-width:0}
+.stat+.stat{padding-left:16px;border-left:1px solid var(--line)}
+.stat b{font-family:var(--f-display);font-size:24px;font-weight:700;letter-spacing:-.01em;line-height:1.15}
+.stat b small{font:400 13px var(--f-body);color:var(--muted)}
+.stat span{font-size:12px;color:var(--ink2)}
+.days{display:flex;flex-direction:column}
+.day{display:grid;grid-template-columns:78px 1fr 92px 108px 128px;gap:14px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.day:first-child{border-top:0}
+.day .dn{display:flex;flex-direction:column}
+.day .dn b{font-weight:600}
+.day .dn span{font:400 11px var(--f-mono);color:var(--muted)}
+.day .ses b{font-weight:600;display:block}
+.day .ses p{font-size:12.5px;color:var(--ink2);margin-top:2px;max-width:62ch}
+.day .ses small{display:block;font:400 11.5px var(--f-mono);color:var(--muted);margin-top:3px}
+.day .tg,.day .ac{font-variant-numeric:tabular-nums;text-align:right}
+.day .tg b,.day .ac b{font-weight:600}
+.day small.lb{display:none;font:400 10px var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.day .ac span{display:block;font:400 11px var(--f-mono);color:var(--muted)}
+.day .st{display:flex;justify-content:flex-end}
+.day.today{background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 9%,transparent),transparent 70%);margin-inline:-12px;padding-inline:12px;border-radius:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;font:500 12px var(--f-body);padding:4px 10px 4px 8px;border-radius:999px;white-space:nowrap;color:var(--ink2);background:color-mix(in srgb,var(--muted) 14%,transparent)}
+.chip svg{flex:none}
+.chip.ok{color:var(--ok-t);background:color-mix(in srgb,var(--ok) 14%,transparent)}
+.chip.near{color:var(--near-t);background:color-mix(in srgb,var(--near) 20%,transparent)}
+.chip.miss{color:var(--miss-t);background:color-mix(in srgb,var(--miss) 13%,transparent)}
+.chip.over{color:var(--over-t);background:color-mix(in srgb,var(--over) 18%,transparent)}
+.chip.run{color:var(--s1);background:color-mix(in srgb,var(--s1) 13%,transparent)}
+.chip.today{color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,transparent)}
+.chip.up,.chip.rest{color:var(--muted)}
+
+/* strips */
+.phase{display:grid;grid-template-columns:200px 1fr auto;gap:16px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.phase:first-of-type{border-top:0}
+.phase .pn{display:flex;gap:10px;align-items:center}.phase b{font-weight:600;display:block}
+.phase span.m{font:400 11px var(--f-mono);color:var(--muted)}
+.cells{display:flex;flex-wrap:wrap;gap:4px}
+.cell{width:18px;height:18px;border-radius:4px;border:1.5px solid var(--plan2);background:transparent;flex:none}
+.cell.ok{background:var(--ok);border-color:var(--ok)}
+.cell.near{background:var(--near);border-color:var(--near)}
+.cell.miss{background:var(--miss);border-color:var(--miss)}
+.cell.over{background:var(--over);border-color:var(--over)}
+.cell.run{border-color:var(--s1);border-width:2px}
+.cell.now{outline:2px solid var(--accent);outline-offset:1px}
+.cell{border-radius:5px}
+.phase .cnt{font:500 12px var(--f-mono);color:var(--ink2);white-space:nowrap}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--ink2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;border:1.5px solid var(--plan2);display:inline-block}
+.legend i.l-bar{width:14px;height:8px;border:0;background:var(--plan)}
+.legend i.l-bar.a{background:var(--s1)}
+.legend i.l-ok{background:var(--ok);border-color:var(--ok)}.legend i.l-near{background:var(--near);border-color:var(--near)}
+.legend i.l-miss{background:var(--miss);border-color:var(--miss)}.legend i.l-over{background:var(--over);border-color:var(--over)}
+.legend i.l-dot{border-radius:50%;width:9px;height:9px;border:0;background:var(--s1)}
+.legend i.l-dot.p{background:var(--muted)}
+
+svg text{font-family:var(--f-mono);fill:var(--muted);font-size:10.5px}
+svg .grid{stroke:var(--grid);stroke-width:1}
+svg .axis{stroke:var(--plan2);stroke-width:1}
+.chart{width:100%}
+.chart svg{display:block;overflow:visible}
+
+/* lists */
+.chk{display:flex;flex-direction:column}
+.chk .r{display:grid;grid-template-columns:auto 1fr auto;gap:2px 12px;padding:11px 0;border-top:1px solid var(--line);align-items:center}
+.chk .r .ic{grid-row:1/3;grid-column:1}.chk .r b{grid-column:2}
+.chk .r:first-child{border-top:0}
+.chk .r b{font-weight:600}
+.chk .r .t{grid-column:2;color:var(--ink2);font-size:12.5px}
+.chk .r .when{grid-row:1/3;grid-column:3;text-align:right;font:500 12px var(--f-mono);color:var(--ink2);align-self:center}
+.goals{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:10px;margin-top:6px}
+.goals div{padding:10px 12px;display:flex;flex-direction:column;gap:1px}
+.goals div+div{border-left:1px solid var(--line)}
+.goals b{font-family:var(--f-display);font-size:20px;font-weight:700;color:var(--c)}
+.goals span{font-size:11.5px;color:var(--ink2)}
+.acts{display:flex;flex-direction:column}
+.act{display:grid;grid-template-columns:28px 1fr auto auto;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
+.act:first-child{border-top:0}
+.act .d{display:block;font:400 11.5px var(--f-mono);color:var(--muted)}
+.act .n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.act .k{font-variant-numeric:tabular-nums;font-weight:600;text-align:right;min-width:64px}
+.act .p{font:400 12px var(--f-mono);color:var(--ink2);text-align:right;min-width:74px}
+.note{font-size:12px;color:var(--muted);max-width:90ch}
+footer{display:flex;flex-direction:column;gap:6px}
+
+#tip{position:fixed;z-index:50;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12px;line-height:1.45;padding:8px 10px;border-radius:8px;max-width:240px;opacity:0;transition:opacity .08s}
+#tip b{font-weight:600}
+@media (prefers-reduced-motion:reduce){#tip{transition:none}}
+
+@media (max-width:860px){
+  .kpis{grid-template-columns:1fr 1fr}
+  .kpi:nth-child(3){border-left:0}
+  .kpi:nth-child(n+3){border-top:1px solid var(--line)}
+  .cols{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat:nth-child(3){padding-left:0;border-left:0}
+  .stat:nth-child(n+3){border-top:1px solid var(--line)}
+  .phase{grid-template-columns:1fr auto}
+  .phase .cells{grid-column:1/-1;grid-row:2}
+}
+@media (max-width:680px){
+  .panel{padding:18px 16px}
+  .day{grid-template-columns:1fr 1fr;grid-template-areas:"dn st" "ses ses" "tg ac";gap:8px 12px}
+  .day .dn{grid-area:dn;flex-direction:row;gap:8px;align-items:baseline}
+  .day .st{grid-area:st}
+  .day .ses{grid-area:ses}
+  .day .tg{grid-area:tg;text-align:left}
+  .day .ac{grid-area:ac;text-align:right}
+  .day small.lb{display:block}
+  .sync{align-items:flex-start}.sync small{text-align:left}
+  .act{grid-template-columns:28px 1fr auto}
+  .act .p{display:none}
+  .goals{grid-template-columns:1fr}
+  .goals div+div{border-left:0;border-top:1px solid var(--line)}
+  .seglbl span{font-size:9px}
+}
+
+/* --- palet tegas: biru dongker + oranye Strava --- */
+.orange{--c:var(--s1)}.navy{--c:var(--navy2)}
+body{background-image:none}
+.ic{background:var(--c);color:#fff;box-shadow:0 1px 0 rgba(10,31,77,.12)}
+.ic.peach,.ic.sand{color:#1b1200}
+header{position:relative;overflow:hidden;color:#fff;border-radius:18px;padding:28px 28px 22px;
+  background:linear-gradient(135deg,#0a1f4d 0%,#14347c 100%);
+  --h-sky:#5b9bff;--h-mint:#2fd1a6;--h-violet:#a592ff;--h-peach:#ffc03a;--h-rose:#ff6b9a}
+header::before{content:"";position:absolute;right:-140px;top:-190px;width:520px;height:520px;border-radius:50%;pointer-events:none;
+  background:repeating-radial-gradient(circle,transparent 0 34px,rgba(255,255,255,.07) 34px 35px)}
+header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:linear-gradient(90deg,#fc4c02,#ff8a3d)}
+header>*{position:relative}
+header h1{color:#fff}
+header h1 span{background:linear-gradient(90deg,#ff7a3d,#fc4c02);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+header .eyebrow{color:rgba(255,255,255,.72)}
+header .sub{color:rgba(255,255,255,.86)}
+header .dates,header .seglbl span{color:rgba(255,255,255,.68)}
+header .seg{background:rgba(255,255,255,.18)}
+header .pin{color:#fff}
+header .pin::after{background:#fc4c02}
+header .btn{background:#fc4c02;border-color:#fc4c02;color:#fff;font-weight:600}
+header .btn:hover{background:#ff6a2b;border-color:#ff6a2b}
+header .btn:focus-visible{outline-color:#fff}
+header .sync small{color:rgba(255,255,255,.72)}
+header .sync small.err{color:#ffb4b0}
+.kpi .v{color:var(--ink)}
+.kpis{border-color:var(--line);box-shadow:0 1px 0 rgba(10,31,77,.04)}
+.panel{box-shadow:0 1px 0 rgba(10,31,77,.04)}
+.chip.ok{background:color-mix(in srgb,var(--ok) 18%,transparent)}
+.chip.near{background:color-mix(in srgb,var(--near) 24%,transparent)}
+.chip.miss{background:color-mix(in srgb,var(--miss) 16%,transparent)}
+.chip.over{background:color-mix(in srgb,var(--over) 16%,transparent)}
+.chip.run,.chip.today{font-weight:600}
+@media (max-width:680px){header{padding:22px 18px 20px}}
+.legend i.l-bar:not(.a){background:var(--pbar)}
+:root{--pbar:#14347c;--pbar2:#4a68ad}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--pbar:#4f7fe0;--pbar2:#34569f}}
+:root[data-theme="dark"]{--pbar:#4f7fe0;--pbar2:#34569f}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="top">
+      <div>
+        <div class="ey"><span class="ic sm rose" data-ic="flag"></span><span class="eyebrow">Full Marathon · 24 Okt 2027 · target sub 3:30</span></div>
+        <h1 style="margin-top:12px">Road to <span>Project FM</span> 2027</h1>
+        <p class="sub" id="lead"></p>
+      </div>
+      <div class="sync">
+        <button class="btn" id="syncBtn" type="button"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7a5 5 0 0 1-9 3M2 7a5 5 0 0 1 9-3"/><path d="M11 1v3H8M3 13v-3h3"/></svg><span>Sinkron Strava</span></button>
+        <small id="syncMsg"></small>
+      </div>
+    </div>
+    <div class="track" id="track"></div>
+  </header>
+
+  <section class="kpis" id="kpis" aria-label="Ringkasan"></section>
+
+  <section class="panel" id="focus"></section>
+
+  <section class="panel">
+    <div class="ph"><div class="hd"><span class="ic sky" data-ic="trend"></span><div><h2>Volume mingguan</h2><p>Rencana 49 minggu dibanding lari yang tercatat di Strava.</p></div></div>
+      <div class="legend"><span><i class="l-bar"></i>Rencana</span><span><i class="l-bar a"></i>Aktual (Strava)</span></div></div>
+    <div class="chart" id="c-weekly"></div>
+    <p class="note">Sumbu bawah: nomor minggu program. Pita di bawah sumbu menandai fase 1 sampai 5. Minggu deload (4, 8, 12, dan seterusnya) sengaja lebih rendah.</p>
+  </section>
+
+  <div class="cols">
+    <section class="panel">
+      <div class="ph"><div class="hd"><span class="ic violet" data-ic="mountain"></span><div><h2>Long run</h2><p>Rencana jarak long run tiap minggu.</p></div></div>
+        <div class="legend"><span><i class="l-dot p"></i>Rencana</span><span><i class="l-dot"></i>Aktual</span></div></div>
+      <div class="chart" id="c-long"></div>
+    </section>
+    <section class="panel">
+      <div class="ph"><div class="hd"><span class="ic mint" data-ic="history"></span><div><h2>Titik awal</h2><p>Km per minggu di Strava sebelum program mulai.</p></div></div>
+        <div class="legend"><span><i class="l-dot"></i>Aktual</span><span><svg width="16" height="6" aria-hidden="true"><line x1="0" x2="16" y1="3" y2="3" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3"/></svg>Target minggu 1 (30 km)</span></div></div>
+      <div class="chart" id="c-base"></div>
+    </section>
+  </div>
+
+  <section class="panel">
+    <div class="ph"><div class="hd"><span class="ic peach" data-ic="target"></span><div><h2>Pencapaian per minggu</h2><p>Satu kotak untuk satu minggu, dikelompokkan per fase.</p></div></div></div>
+    <div id="phases"></div>
+    <div class="legend">
+      <span><i class="l-ok"></i>Tercapai (90% atau lebih)</span><span><i class="l-near"></i>Hampir (70–89%)</span><span><i class="l-miss"></i>Di bawah target (&lt;70%)</span><span><i class="l-over"></i>Melebihi rencana (&gt;110%)</span><span><i></i>Belum berjalan</span>
+    </div>
+  </section>
+
+  <div class="cols">
+    <section class="panel">
+      <div class="ph"><div class="hd"><span class="ic rose" data-ic="trophy"></span><div><h2>Checkpoint & target</h2><p>Tes yang menandai progres di sepanjang program.</p></div></div></div>
+      <div class="chk" id="checks"></div>
+      <div class="goals" id="goals"></div>
+    </section>
+    <section class="panel">
+      <div class="ph"><div class="hd"><span class="ic sky" data-ic="pulse"></span><div><h2>Hasil latihan terbaru</h2><p id="actSub">Aktivitas terakhir dari Strava.</p></div></div></div>
+      <div class="acts" id="acts"></div>
+    </section>
+  </div>
+
+  <footer>
+    <p class="note" id="rules"></p>
+  </footer>
+</div>
+<div id="tip" role="tooltip"></div>
+
+<script>
+const PLAN=[{"w":1,"d":"2026-11-16","day":"Senin","ph":"1 · Base Building","t":"Strength","s":"Strength A","det":"","km":0,"pace":"—"},{"w":1,"d":"2026-11-17","day":"Selasa","ph":"1 · Base Building","t":"Easy","s":"Easy Run","det":"Easy Z2 sangat santai. Re-start pasca HM; dengarkan kaki.","km":4,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":1,"d":"2026-11-18","day":"Rabu","ph":"1 · Base Building","t":"Easy","s":"Easy Run","det":"Easy Z2 santai. Fokus konsistensi dan form; tanpa target pace.","km":5,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":1,"d":"2026-11-19","day":"Kamis","ph":"1 · Base Building","t":"Rest","s":"Rest","det":"","km":0,"pace":"—"},{"w":1,"d":"2026-11-20","day":"Jumat","ph":"1 · Base Building","t":"Rest","s":"Rest","det":"","km":0,"pace":"—"},{"w":1,"d":"2026-11-21","day":"Sabtu","ph":"1 · Base Building","t":"Easy","s":"Easy Run / Progresif","det":"Easy atau Progresif Run","km":10,"pace":"Under 60 menit"},{"w":1,"d":"2026-11-22","day":"Minggu","ph":"1 · Base Building","t":"Long Run","s":"Long Run","det":"Easy steady Z2; tanpa target pace. Latih minum/gel di long run.","km":5,"pace":"5:45–6:30 /km · HR Z2"},{"w":2,"d":"2026-11-23","day":"Senin","ph":"1 · Base Building","t":"Strength","s":"Strength A","det":"Stabilitas panggul 25': clamshell 2×15, side plank 3×30\", glute bridge 3×12, single-leg RDL 3×8, step-up 3×10, calf raise 3×15.","km":0,"pace":"—"},{"w":2,"d":"2026-11-24","day":"Selasa","ph":"1 · Base Building","t":"Easy","s":"Easy Run","det":"Easy Z2 santai, fokus form.","km":5,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":2,"d":"2026-11-25","day":"Rabu","ph":"1 · Base Building","t":"Easy","s":"Easy Run","det":"Easy Z2 santai, cadence ±170–180 spm.","km":6,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":2,"d":"2026-11-27","day":"Jumat","ph":"1 · Base Building","t":"Easy","s":"Easy Aerobic","det":"Easy Z2; durasi sedikit lebih panjang dari Selasa.","km":6,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":2,"d":"2026-11-26","day":"Kamis","ph":"1 · Base Building","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":2,"d":"2026-11-28","day":"Sabtu","ph":"1 · Base Building","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":4,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":2,"d":"2026-11-29","day":"Minggu","ph":"1 · Base Building","t":"Long Run","s":"Long Run","det":"Easy steady Z2; tanpa target pace. Latih minum/gel di long run.","km":12,"pace":"5:45–6:30 /km · HR Z2"},{"w":3,"d":"2026-11-30","day":"Senin","ph":"1 · Base Building","t":"Strength","s":"Strength A","det":"Stabilitas panggul 25': clamshell 2×15, side plank 3×30\", glute bridge 3×12, single-leg RDL 3×8, step-up 3×10, calf raise 3×15.","km":0,"pace":"—"},{"w":3,"d":"2026-12-01","day":"Selasa","ph":"1 · Base Building","t":"Easy","s":"Easy Run","det":"Easy Z2 santai, fokus form.","km":5,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":3,"d":"2026-12-02","day":"Rabu","ph":"1 · Base Building","t":"Easy","s":"Easy + Strides","det":"Easy + 6×20\" strides (cepat tapi rileks, ±4:15 /km), jeda jalan 60\".","km":6,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":3,"d":"2026-12-03","day":"Kamis","ph":"1 · Base Building","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":3,"d":"2026-12-04","day":"Jumat","ph":"1 · Base Building","t":"Easy","s":"Easy Aerobic","det":"Easy Z2; durasi sedikit lebih panjang dari Selasa.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":3,"d":"2026-12-05","day":"Sabtu","ph":"1 · Base Building","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":5,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":3,"d":"2026-12-06","day":"Minggu","ph":"1 · Base Building","t":"Long Run","s":"Long Run","det":"Easy steady Z2; tanpa target pace. Latih minum/gel di long run.","km":13,"pace":"5:45–6:30 /km · HR Z2"},{"w":4,"d":"2026-12-07","day":"Senin","ph":"1 · Base Building","t":"Strength","s":"Strength A","det":"Stabilitas panggul 25': clamshell 2×15, side plank 3×30\", glute bridge 3×12, single-leg RDL 3×8, step-up 3×10, calf raise 3×15.","km":0,"pace":"—"},{"w":4,"d":"2026-12-08","day":"Selasa","ph":"1 · Base Building","t":"Easy","s":"Easy Run","det":"Easy Z2 santai, fokus form.","km":4,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":4,"d":"2026-12-09","day":"Rabu","ph":"1 · Base Building","t":"Easy","s":"Easy Run (Deload)","det":"Easy sangat santai.","km":5,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":4,"d":"2026-12-10","day":"Kamis","ph":"1 · Base Building","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":4,"d":"2026-12-11","day":"Jumat","ph":"1 · Base Building","t":"Easy","s":"Easy Aerobic","det":"Easy Z2; durasi sedikit lebih panjang dari Selasa.","km":5,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":4,"d":"2026-12-12","day":"Sabtu","ph":"1 · Base Building","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":4,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":4,"d":"2026-12-13","day":"Minggu","ph":"1 · Base Building","t":"Long Run","s":"Long Run","det":"Easy santai, tanpa target pace (Deload).","km":10,"pace":"5:45–6:30 /km · HR Z2"},{"w":5,"d":"2026-12-14","day":"Senin","ph":"1 · Base Building","t":"Strength","s":"Strength A","det":"Stabilitas panggul 25': clamshell 2×15, side plank 3×30\", glute bridge 3×12, single-leg RDL 3×8, step-up 3×10, calf raise 3×15.","km":0,"pace":"—"},{"w":5,"d":"2026-12-15","day":"Selasa","ph":"1 · Base Building","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":5,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":5,"d":"2026-12-16","day":"Rabu","ph":"1 · Base Building","t":"Easy","s":"Easy + Strides","det":"Easy + 6×20\" strides.","km":7,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":5,"d":"2026-12-17","day":"Kamis","ph":"1 · Base Building","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":5,"d":"2026-12-18","day":"Jumat","ph":"1 · Base Building","t":"Easy","s":"Easy Aerobic","det":"Easy Z2; durasi sedikit lebih panjang dari Selasa.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":5,"d":"2026-12-19","day":"Sabtu","ph":"1 · Base Building","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":5,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":5,"d":"2026-12-20","day":"Minggu","ph":"1 · Base Building","t":"Long Run","s":"Long Run","det":"Easy steady Z2; tanpa target pace. Latih minum/gel di long run.","km":14,"pace":"5:45–6:30 /km · HR Z2"},{"w":6,"d":"2026-12-21","day":"Senin","ph":"1 · Base Building","t":"Strength","s":"Strength A","det":"Stabilitas panggul 25': clamshell 2×15, side plank 3×30\", glute bridge 3×12, single-leg RDL 3×8, step-up 3×10, calf raise 3×15.","km":0,"pace":"—"},{"w":6,"d":"2026-12-22","day":"Selasa","ph":"1 · Base Building","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":6,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":6,"d":"2026-12-23","day":"Rabu","ph":"1 · Base Building","t":"Easy","s":"Easy + Hill Strides","det":"Easy + 6×10\" tanjakan landai (menanjak ringan), turun dengan jalan santai.","km":7,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":6,"d":"2026-12-24","day":"Kamis","ph":"1 · Base Building","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":6,"d":"2026-12-25","day":"Jumat","ph":"1 · Base Building","t":"Easy","s":"Easy Aerobic","det":"Easy Z2; durasi sedikit lebih panjang dari Selasa.","km":8,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":6,"d":"2026-12-26","day":"Sabtu","ph":"1 · Base Building","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":5,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":6,"d":"2026-12-27","day":"Minggu","ph":"1 · Base Building","t":"Long Run","s":"Long Run","det":"Easy steady Z2; tanpa target pace. Latih minum/gel di long run.","km":15,"pace":"5:45–6:30 /km · HR Z2"},{"w":7,"d":"2026-12-28","day":"Senin","ph":"1 · Base Building","t":"Strength","s":"Strength A","det":"Stabilitas panggul 25': clamshell 2×15, side plank 3×30\", glute bridge 3×12, single-leg RDL 3×8, step-up 3×10, calf raise 3×15.","km":0,"pace":"—"},{"w":7,"d":"2026-12-29","day":"Selasa","ph":"1 · Base Building","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":6,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":7,"d":"2026-12-30","day":"Rabu","ph":"1 · Base Building","t":"Quality","s":"Fartlek Ringan","det":"WU 2 km · 6×(1' cepat @4:40–4:50 / 2' easy jog) · CD 2 km.","km":8,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":7,"d":"2026-12-31","day":"Kamis","ph":"1 · Base Building","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":7,"d":"2027-01-01","day":"Jumat","ph":"1 · Base Building","t":"Easy","s":"Easy Aerobic","det":"Easy Z2; durasi sedikit lebih panjang dari Selasa.","km":8,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":7,"d":"2027-01-02","day":"Sabtu","ph":"1 · Base Building","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":6,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":7,"d":"2027-01-03","day":"Minggu","ph":"1 · Base Building","t":"Long Run","s":"Long Run","det":"Easy steady Z2; tanpa target pace. Latih minum/gel di long run.","km":16,"pace":"5:45–6:30 /km · HR Z2"},{"w":8,"d":"2027-01-04","day":"Senin","ph":"1 · Base Building","t":"Strength","s":"Strength A","det":"Stabilitas panggul 25': clamshell 2×15, side plank 3×30\", glute bridge 3×12, single-leg RDL 3×8, step-up 3×10, calf raise 3×15.","km":0,"pace":"—"},{"w":8,"d":"2027-01-05","day":"Selasa","ph":"1 · Base Building","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":5,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":8,"d":"2027-01-06","day":"Rabu","ph":"1 · Base Building","t":"Easy","s":"Easy + Strides (Deload)","det":"Easy + 4×20\" strides.","km":6,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":8,"d":"2027-01-07","day":"Kamis","ph":"1 · Base Building","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":8,"d":"2027-01-08","day":"Jumat","ph":"1 · Base Building","t":"Easy","s":"Easy Aerobic","det":"Easy Z2; durasi sedikit lebih panjang dari Selasa.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":8,"d":"2027-01-09","day":"Sabtu","ph":"1 · Base Building","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":4,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":8,"d":"2027-01-10","day":"Minggu","ph":"1 · Base Building","t":"Long Run","s":"Long Run","det":"Easy santai, tanpa target pace (Deload).","km":12,"pace":"5:45–6:30 /km · HR Z2"},{"w":9,"d":"2027-01-11","day":"Senin","ph":"1 · Base Building","t":"Strength","s":"Strength A","det":"Stabilitas panggul 25': clamshell 2×15, side plank 3×30\", glute bridge 3×12, single-leg RDL 3×8, step-up 3×10, calf raise 3×15.","km":0,"pace":"—"},{"w":9,"d":"2027-01-12","day":"Selasa","ph":"1 · Base Building","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":6,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":9,"d":"2027-01-13","day":"Rabu","ph":"1 · Base Building","t":"Quality","s":"Fartlek","det":"WU 2 km · 8×(1' @4:35–4:45 / 1'30\" easy) · CD 2 km.","km":9,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":9,"d":"2027-01-14","day":"Kamis","ph":"1 · Base Building","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":9,"d":"2027-01-15","day":"Jumat","ph":"1 · Base Building","t":"Easy","s":"Easy Aerobic","det":"Easy Z2; durasi sedikit lebih panjang dari Selasa.","km":8,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":9,"d":"2027-01-16","day":"Sabtu","ph":"1 · Base Building","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":5,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":9,"d":"2027-01-17","day":"Minggu","ph":"1 · Base Building","t":"Long Run","s":"Long Run","det":"Easy; 2 km terakhir progresif 5:40 → 5:30.","km":17,"pace":"5:45–6:30 /km · HR Z2"},{"w":10,"d":"2027-01-18","day":"Senin","ph":"1 · Base Building","t":"Strength","s":"Strength A","det":"Stabilitas panggul 25': clamshell 2×15, side plank 3×30\", glute bridge 3×12, single-leg RDL 3×8, step-up 3×10, calf raise 3×15.","km":0,"pace":"—"},{"w":10,"d":"2027-01-19","day":"Selasa","ph":"1 · Base Building","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":6,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":10,"d":"2027-01-20","day":"Rabu","ph":"1 · Base Building","t":"Quality","s":"Fartlek 3 Menit","det":"WU 2 km · 4×(3' @4:50–5:00 / 2' easy) · CD 2 km.","km":9,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":10,"d":"2027-01-21","day":"Kamis","ph":"1 · Base Building","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":10,"d":"2027-01-22","day":"Jumat","ph":"1 · Base Building","t":"Easy","s":"Easy Aerobic","det":"Easy Z2; durasi sedikit lebih panjang dari Selasa.","km":8,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":10,"d":"2027-01-23","day":"Sabtu","ph":"1 · Base Building","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":6,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":10,"d":"2027-01-24","day":"Minggu","ph":"1 · Base Building","t":"Long Run","s":"Long Run","det":"Easy steady Z2; tanpa target pace. Latih minum/gel di long run.","km":18,"pace":"5:45–6:30 /km · HR Z2"},{"w":11,"d":"2027-01-25","day":"Senin","ph":"1 · Base Building","t":"Strength","s":"Strength A","det":"Stabilitas panggul 25': clamshell 2×15, side plank 3×30\", glute bridge 3×12, single-leg RDL 3×8, step-up 3×10, calf raise 3×15.","km":0,"pace":"—"},{"w":11,"d":"2027-01-26","day":"Selasa","ph":"1 · Base Building","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":6,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":11,"d":"2027-01-27","day":"Rabu","ph":"1 · Base Building","t":"Quality","s":"Tempo Intro","det":"WU 2 km · 2×8' @4:55–5:00 / 3' jog · CD 2 km.","km":10,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":11,"d":"2027-01-28","day":"Kamis","ph":"1 · Base Building","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":11,"d":"2027-01-29","day":"Jumat","ph":"1 · Base Building","t":"Easy","s":"Easy Aerobic","det":"Easy Z2; durasi sedikit lebih panjang dari Selasa.","km":9,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":11,"d":"2027-01-30","day":"Sabtu","ph":"1 · Base Building","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":6,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":11,"d":"2027-01-31","day":"Minggu","ph":"1 · Base Building","t":"Long Run","s":"Long Run","det":"Easy; 3 km terakhir progresif 5:30 → 5:20.","km":19,"pace":"5:45–6:30 /km · HR Z2"},{"w":12,"d":"2027-02-01","day":"Senin","ph":"1 · Base Building","t":"Strength","s":"Strength A","det":"Stabilitas panggul 25': clamshell 2×15, side plank 3×30\", glute bridge 3×12, single-leg RDL 3×8, step-up 3×10, calf raise 3×15.","km":0,"pace":"—"},{"w":12,"d":"2027-02-02","day":"Selasa","ph":"1 · Base Building","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":8,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":12,"d":"2027-02-03","day":"Rabu","ph":"1 · Base Building","t":"Easy","s":"Easy + Strides (Pekan Tes)","det":"Easy + 4×20\" strides. Jaga kaki segar untuk 5K Time Trial hari Minggu.","km":6,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":12,"d":"2027-02-04","day":"Kamis","ph":"1 · Base Building","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":12,"d":"2027-02-05","day":"Jumat","ph":"1 · Base Building","t":"Easy","s":"Easy Aerobic","det":"Easy + 4×20\" strides. Jaga kaki segar untuk tes hari Minggu.","km":7,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":12,"d":"2027-02-06","day":"Sabtu","ph":"1 · Base Building","t":"Easy","s":"Shakeout","det":"Shakeout 4 km santai + 3×20\" strides. Siapkan perlengkapan tes.","km":4,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":12,"d":"2027-02-07","day":"Minggu","ph":"1 · Base Building","t":"Test Race","s":"5K Time Trial","det":"WU 2 km · 5K all-out (target ≤22:00, pace ≈4:24) · CD 2 km. Hasil dipakai untuk update zona pace (sheet Zona Pace).","km":9,"pace":"5K pace ≈4:24–4:30 /km"},{"w":13,"d":"2027-02-08","day":"Senin","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength A","det":"Kekuatan 25': Bulgarian split squat 3×8, hip thrust 3×10, single-leg bridge 3×10, lateral band walk 3×12, calf raise 3×15.","km":0,"pace":"—"},{"w":13,"d":"2027-02-09","day":"Selasa","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":6,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":13,"d":"2027-02-10","day":"Rabu","ph":"2 · Aerobic + Speed Dev","t":"Quality","s":"Tempo","det":"WU 2 km · 3×6' @4:45–4:55 / 2' jog · CD 2 km.","km":9,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":13,"d":"2027-02-11","day":"Kamis","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":13,"d":"2027-02-12","day":"Jumat","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Medium Aerobic","det":"Easy–steady 5:45–6:15 /km; bangun volume tanpa stres.","km":9,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":13,"d":"2027-02-13","day":"Sabtu","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":6,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":13,"d":"2027-02-14","day":"Minggu","ph":"2 · Aerobic + Speed Dev","t":"Long Run","s":"Long Run","det":"Easy steady Z2; tanpa target pace. Latih minum/gel di long run.","km":20,"pace":"5:45–6:30 /km · HR Z2"},{"w":14,"d":"2027-02-15","day":"Senin","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength A","det":"Kekuatan 25': Bulgarian split squat 3×8, hip thrust 3×10, single-leg bridge 3×10, lateral band walk 3×12, calf raise 3×15.","km":0,"pace":"—"},{"w":14,"d":"2027-02-16","day":"Selasa","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":14,"d":"2027-02-17","day":"Rabu","ph":"2 · Aerobic + Speed Dev","t":"Quality","s":"Interval Pendek","det":"WU 2.5 km · 6×400 m @4:10–4:20 /km, jog 200 m · CD 2 km.","km":9,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":14,"d":"2027-02-18","day":"Kamis","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":14,"d":"2027-02-19","day":"Jumat","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Medium Aerobic","det":"Easy–steady 5:45–6:15 /km; bangun volume tanpa stres.","km":10,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":14,"d":"2027-02-20","day":"Sabtu","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":6,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":14,"d":"2027-02-21","day":"Minggu","ph":"2 · Aerobic + Speed Dev","t":"Long Run","s":"Long Run","det":"Easy steady Z2; tanpa target pace. Latih minum/gel di long run.","km":20,"pace":"5:45–6:30 /km · HR Z2"},{"w":15,"d":"2027-02-22","day":"Senin","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength A","det":"Kekuatan 25': Bulgarian split squat 3×8, hip thrust 3×10, single-leg bridge 3×10, lateral band walk 3×12, calf raise 3×15.","km":0,"pace":"—"},{"w":15,"d":"2027-02-23","day":"Selasa","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":6,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":15,"d":"2027-02-24","day":"Rabu","ph":"2 · Aerobic + Speed Dev","t":"Quality","s":"Tempo Kontinu","det":"WU 2 km · 2×15' @4:45–4:55 / 3' jog · CD 2 km.","km":11,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":15,"d":"2027-02-25","day":"Kamis","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":15,"d":"2027-02-26","day":"Jumat","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Medium Aerobic","det":"Easy–steady 5:45–6:15 /km; bangun volume tanpa stres.","km":9,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":15,"d":"2027-02-27","day":"Sabtu","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":6,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":15,"d":"2027-02-28","day":"Minggu","ph":"2 · Aerobic + Speed Dev","t":"Long Run","s":"Long Run","det":"Easy; 2 km terakhir @5:15.","km":22,"pace":"5:45–6:30 /km · HR Z2"},{"w":16,"d":"2027-03-01","day":"Senin","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength A","det":"Kekuatan 25': Bulgarian split squat 3×8, hip thrust 3×10, single-leg bridge 3×10, lateral band walk 3×12, calf raise 3×15.","km":0,"pace":"—"},{"w":16,"d":"2027-03-02","day":"Selasa","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":5,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":16,"d":"2027-03-03","day":"Rabu","ph":"2 · Aerobic + Speed Dev","t":"Quality","s":"Fartlek (Deload)","det":"WU 2 km · 6×(1' @4:30–4:40 / 1'30\" easy) · CD 2 km.","km":8,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":16,"d":"2027-03-04","day":"Kamis","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":16,"d":"2027-03-05","day":"Jumat","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Medium Aerobic","det":"Easy–steady 5:45–6:15 /km; bangun volume tanpa stres.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":16,"d":"2027-03-06","day":"Sabtu","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":5,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":16,"d":"2027-03-07","day":"Minggu","ph":"2 · Aerobic + Speed Dev","t":"Long Run","s":"Long Run","det":"Easy santai, tanpa target pace (Deload).","km":16,"pace":"5:45–6:30 /km · HR Z2"},{"w":17,"d":"2027-03-08","day":"Senin","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength A","det":"Kekuatan 25': Bulgarian split squat 3×8, hip thrust 3×10, single-leg bridge 3×10, lateral band walk 3×12, calf raise 3×15.","km":0,"pace":"—"},{"w":17,"d":"2027-03-09","day":"Selasa","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":6,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":17,"d":"2027-03-10","day":"Rabu","ph":"2 · Aerobic + Speed Dev","t":"Quality","s":"Interval 1000","det":"WU 2.5 km · 5×1000 m @4:20–4:30 / jog 400 m · CD 2 km.","km":11,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":17,"d":"2027-03-11","day":"Kamis","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":17,"d":"2027-03-12","day":"Jumat","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Medium Aerobic","det":"Easy–steady 5:45–6:15 /km; bangun volume tanpa stres.","km":9,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":17,"d":"2027-03-13","day":"Sabtu","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":6,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":17,"d":"2027-03-14","day":"Minggu","ph":"2 · Aerobic + Speed Dev","t":"Long Run","s":"Long Run","det":"Easy steady Z2; tanpa target pace. Latih minum/gel di long run.","km":22,"pace":"5:45–6:30 /km · HR Z2"},{"w":18,"d":"2027-03-15","day":"Senin","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength A","det":"Kekuatan 25': Bulgarian split squat 3×8, hip thrust 3×10, single-leg bridge 3×10, lateral band walk 3×12, calf raise 3×15.","km":0,"pace":"—"},{"w":18,"d":"2027-03-16","day":"Selasa","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":18,"d":"2027-03-17","day":"Rabu","ph":"2 · Aerobic + Speed Dev","t":"Quality","s":"Tempo","det":"WU 2 km · 25' kontinu @4:45–4:50 · CD 2 km.","km":10,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":18,"d":"2027-03-18","day":"Kamis","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":18,"d":"2027-03-19","day":"Jumat","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Medium Aerobic","det":"Easy–steady 5:45–6:15 /km; bangun volume tanpa stres.","km":10,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":18,"d":"2027-03-20","day":"Sabtu","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":6,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":18,"d":"2027-03-21","day":"Minggu","ph":"2 · Aerobic + Speed Dev","t":"Long Run","s":"Long Run","det":"Easy; 3 km terakhir @5:10–5:15.","km":23,"pace":"5:45–6:30 /km · HR Z2"},{"w":19,"d":"2027-03-22","day":"Senin","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength A","det":"Kekuatan 25': Bulgarian split squat 3×8, hip thrust 3×10, single-leg bridge 3×10, lateral band walk 3×12, calf raise 3×15.","km":0,"pace":"—"},{"w":19,"d":"2027-03-23","day":"Selasa","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":8,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":19,"d":"2027-03-24","day":"Rabu","ph":"2 · Aerobic + Speed Dev","t":"Quality","s":"Hill Repeats","det":"WU 2.5 km · 8×45\" tanjakan landai (usaha ±10K) · jalan/jog turun pelan (hindari downhill cepat) · CD 2 km.","km":9,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":19,"d":"2027-03-25","day":"Kamis","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":19,"d":"2027-03-26","day":"Jumat","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Medium Aerobic","det":"Easy–steady 5:45–6:15 /km; bangun volume tanpa stres.","km":10,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":19,"d":"2027-03-27","day":"Sabtu","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":7,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":19,"d":"2027-03-28","day":"Minggu","ph":"2 · Aerobic + Speed Dev","t":"Long Run","s":"Long Run","det":"Easy steady Z2; tanpa target pace. Latih minum/gel di long run.","km":24,"pace":"5:45–6:30 /km · HR Z2"},{"w":20,"d":"2027-03-29","day":"Senin","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength A","det":"Kekuatan 25': Bulgarian split squat 3×8, hip thrust 3×10, single-leg bridge 3×10, lateral band walk 3×12, calf raise 3×15.","km":0,"pace":"—"},{"w":20,"d":"2027-03-30","day":"Selasa","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":6,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":20,"d":"2027-03-31","day":"Rabu","ph":"2 · Aerobic + Speed Dev","t":"Quality","s":"Fartlek (Deload)","det":"WU 2 km · 8×(1' cepat / 1' easy) · CD 2 km.","km":9,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":20,"d":"2027-04-01","day":"Kamis","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":20,"d":"2027-04-02","day":"Jumat","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Medium Aerobic","det":"Easy–steady 5:45–6:15 /km; bangun volume tanpa stres.","km":8,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":20,"d":"2027-04-03","day":"Sabtu","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":5,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":20,"d":"2027-04-04","day":"Minggu","ph":"2 · Aerobic + Speed Dev","t":"Long Run","s":"Long Run","det":"Easy santai, tanpa target pace (Deload).","km":17,"pace":"5:45–6:30 /km · HR Z2"},{"w":21,"d":"2027-04-05","day":"Senin","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength A","det":"Kekuatan 25': Bulgarian split squat 3×8, hip thrust 3×10, single-leg bridge 3×10, lateral band walk 3×12, calf raise 3×15.","km":0,"pace":"—"},{"w":21,"d":"2027-04-06","day":"Selasa","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":21,"d":"2027-04-07","day":"Rabu","ph":"2 · Aerobic + Speed Dev","t":"Quality","s":"Interval 800","det":"WU 2.5 km · 6×800 m @4:15–4:25 / jog 400 m · CD 2 km.","km":11,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":21,"d":"2027-04-08","day":"Kamis","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":21,"d":"2027-04-09","day":"Jumat","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Medium Aerobic","det":"Easy–steady 5:45–6:15 /km; bangun volume tanpa stres.","km":10,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":21,"d":"2027-04-10","day":"Sabtu","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":6,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":21,"d":"2027-04-11","day":"Minggu","ph":"2 · Aerobic + Speed Dev","t":"Long Run","s":"Long Run","det":"Fartlek long run: setelah 5 km easy, 4×(5' @5:15 / 5' easy), sisanya easy.","km":24,"pace":"5:45–6:30 /km · HR Z2"},{"w":22,"d":"2027-04-12","day":"Senin","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength A","det":"Kekuatan 25': Bulgarian split squat 3×8, hip thrust 3×10, single-leg bridge 3×10, lateral band walk 3×12, calf raise 3×15.","km":0,"pace":"—"},{"w":22,"d":"2027-04-13","day":"Selasa","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":22,"d":"2027-04-14","day":"Rabu","ph":"2 · Aerobic + Speed Dev","t":"Quality","s":"Tempo","det":"WU 2 km · 3×10' @4:45–4:50 / 2' jog · CD 2 km.","km":11,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":22,"d":"2027-04-15","day":"Kamis","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":22,"d":"2027-04-16","day":"Jumat","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Medium Aerobic","det":"Easy–steady 5:45–6:15 /km; bangun volume tanpa stres.","km":10,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":22,"d":"2027-04-17","day":"Sabtu","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":7,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":22,"d":"2027-04-18","day":"Minggu","ph":"2 · Aerobic + Speed Dev","t":"Long Run","s":"Long Run","det":"Easy; 3 km terakhir @5:05.","km":25,"pace":"5:45–6:30 /km · HR Z2"},{"w":23,"d":"2027-04-19","day":"Senin","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength A","det":"Kekuatan 25': Bulgarian split squat 3×8, hip thrust 3×10, single-leg bridge 3×10, lateral band walk 3×12, calf raise 3×15.","km":0,"pace":"—"},{"w":23,"d":"2027-04-20","day":"Selasa","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":23,"d":"2027-04-21","day":"Rabu","ph":"2 · Aerobic + Speed Dev","t":"Quality","s":"Interval 1600","det":"WU 2.5 km · 4×1600 m @4:30–4:35 / jog 400 m · CD 2 km.","km":12,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":23,"d":"2027-04-22","day":"Kamis","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":23,"d":"2027-04-23","day":"Jumat","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Medium Aerobic","det":"Easy–steady 5:45–6:15 /km; bangun volume tanpa stres.","km":10,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":23,"d":"2027-04-24","day":"Sabtu","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":7,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":23,"d":"2027-04-25","day":"Minggu","ph":"2 · Aerobic + Speed Dev","t":"Long Run","s":"Long Run","det":"Easy steady Z2; tanpa target pace. Latih minum/gel di long run.","km":26,"pace":"5:45–6:30 /km · HR Z2"},{"w":24,"d":"2027-04-26","day":"Senin","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength A","det":"Kekuatan 25': Bulgarian split squat 3×8, hip thrust 3×10, single-leg bridge 3×10, lateral band walk 3×12, calf raise 3×15.","km":0,"pace":"—"},{"w":24,"d":"2027-04-27","day":"Selasa","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":9,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":24,"d":"2027-04-28","day":"Rabu","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Fartlek Pra-Tes","det":"WU 2 km · 5×(1' @4:30 / 1'30\" easy) · CD 2 km. Jaga kaki segar untuk 10K Test hari Minggu.","km":9,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":24,"d":"2027-04-29","day":"Kamis","ph":"2 · Aerobic + Speed Dev","t":"Strength","s":"Strength B + Mobilitas","det":"20': lateral band walk 3×12, hip hike 3×10, dead bug 3×10, plank 3×40\". Foam roll ITB/TFL + stretch hip flexor.","km":0,"pace":"—"},{"w":24,"d":"2027-04-30","day":"Jumat","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Medium Aerobic","det":"Easy + 4×20\" strides. Jaga kaki segar untuk tes hari Minggu.","km":9,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":24,"d":"2027-05-01","day":"Sabtu","ph":"2 · Aerobic + Speed Dev","t":"Easy","s":"Shakeout","det":"Shakeout 4 km santai + 3×20\" strides. Siapkan perlengkapan tes.","km":4,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":24,"d":"2027-05-02","day":"Minggu","ph":"2 · Aerobic + Speed Dev","t":"Test Race","s":"10K Test Race","det":"WU 2 km · 10K race effort (target ≈45:00, pace ≈4:30) · CD 2 km. Cari event lokal atau lakukan time trial.","km":14,"pace":"10K pace ≈4:30 /km"},{"w":25,"d":"2027-05-03","day":"Senin","ph":"3 · Threshold & Strength Endurance","t":"Strength","s":"Strength A","det":"Maintenance 20': split squat 3×8, hip thrust 3×8, side plank 3×40\", single-leg RDL 3×8.","km":0,"pace":"—"},{"w":25,"d":"2027-05-04","day":"Selasa","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":25,"d":"2027-05-05","day":"Rabu","ph":"3 · Threshold & Strength Endurance","t":"Quality","s":"Tempo","det":"WU 2 km · 4×8' @4:45–4:50 / 2' jog · CD 2 km.","km":12,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":25,"d":"2027-05-06","day":"Kamis","ph":"3 · Threshold & Strength Endurance","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":25,"d":"2027-05-07","day":"Jumat","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":9,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":25,"d":"2027-05-08","day":"Sabtu","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":6,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":25,"d":"2027-05-09","day":"Minggu","ph":"3 · Threshold & Strength Endurance","t":"Long Run","s":"Long Run","det":"Easy; 3 km terakhir @5:10–5:15.","km":26,"pace":"5:45–6:30 /km · HR Z2"},{"w":26,"d":"2027-05-10","day":"Senin","ph":"3 · Threshold & Strength Endurance","t":"Strength","s":"Strength A","det":"Maintenance 20': split squat 3×8, hip thrust 3×8, side plank 3×40\", single-leg RDL 3×8.","km":0,"pace":"—"},{"w":26,"d":"2027-05-11","day":"Selasa","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":26,"d":"2027-05-12","day":"Rabu","ph":"3 · Threshold & Strength Endurance","t":"Quality","s":"Interval 1000","det":"WU 2.5 km · 6×1000 m @4:20–4:25 / jog 400 m · CD 2 km.","km":13,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":26,"d":"2027-05-13","day":"Kamis","ph":"3 · Threshold & Strength Endurance","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":26,"d":"2027-05-14","day":"Jumat","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":9,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":26,"d":"2027-05-15","day":"Sabtu","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":6,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":26,"d":"2027-05-16","day":"Minggu","ph":"3 · Threshold & Strength Endurance","t":"Long Run","s":"Long Run","det":"Easy steady Z2; tanpa target pace. Latih minum/gel di long run.","km":27,"pace":"5:45–6:30 /km · HR Z2"},{"w":27,"d":"2027-05-17","day":"Senin","ph":"3 · Threshold & Strength Endurance","t":"Strength","s":"Strength A","det":"Maintenance 20': split squat 3×8, hip thrust 3×8, side plank 3×40\", single-leg RDL 3×8.","km":0,"pace":"—"},{"w":27,"d":"2027-05-18","day":"Selasa","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":27,"d":"2027-05-19","day":"Rabu","ph":"3 · Threshold & Strength Endurance","t":"Quality","s":"Tempo Kontinu","det":"WU 2 km · 40' @4:48–4:55 · CD 2 km.","km":12,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":27,"d":"2027-05-20","day":"Kamis","ph":"3 · Threshold & Strength Endurance","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":27,"d":"2027-05-21","day":"Jumat","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":10,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":27,"d":"2027-05-22","day":"Sabtu","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":7,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":27,"d":"2027-05-23","day":"Minggu","ph":"3 · Threshold & Strength Endurance","t":"Long Run","s":"Long Run","det":"Easy; 5 km terakhir @5:10–5:15.","km":28,"pace":"5:45–6:30 /km · HR Z2"},{"w":28,"d":"2027-05-24","day":"Senin","ph":"3 · Threshold & Strength Endurance","t":"Strength","s":"Strength A","det":"Maintenance 20': split squat 3×8, hip thrust 3×8, side plank 3×40\", single-leg RDL 3×8.","km":0,"pace":"—"},{"w":28,"d":"2027-05-25","day":"Selasa","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":6,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":28,"d":"2027-05-26","day":"Rabu","ph":"3 · Threshold & Strength Endurance","t":"Quality","s":"Fartlek (Deload)","det":"WU 2 km · 8×(1' @4:30 / 1' easy) · CD 2 km.","km":9,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":28,"d":"2027-05-27","day":"Kamis","ph":"3 · Threshold & Strength Endurance","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":28,"d":"2027-05-28","day":"Jumat","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":8,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":28,"d":"2027-05-29","day":"Sabtu","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":6,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":28,"d":"2027-05-30","day":"Minggu","ph":"3 · Threshold & Strength Endurance","t":"Long Run","s":"Long Run","det":"Easy santai, tanpa target pace (Deload).","km":20,"pace":"5:45–6:30 /km · HR Z2"},{"w":29,"d":"2027-05-31","day":"Senin","ph":"3 · Threshold & Strength Endurance","t":"Strength","s":"Strength A","det":"Maintenance 20': split squat 3×8, hip thrust 3×8, side plank 3×40\", single-leg RDL 3×8.","km":0,"pace":"—"},{"w":29,"d":"2027-06-01","day":"Selasa","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":29,"d":"2027-06-02","day":"Rabu","ph":"3 · Threshold & Strength Endurance","t":"Quality","s":"Interval 1600","det":"WU 2.5 km · 5×1600 m @4:28–4:35 / jog 400 m · CD 2 km.","km":14,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":29,"d":"2027-06-03","day":"Kamis","ph":"3 · Threshold & Strength Endurance","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":29,"d":"2027-06-04","day":"Jumat","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":9,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":29,"d":"2027-06-05","day":"Sabtu","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":6,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":29,"d":"2027-06-06","day":"Minggu","ph":"3 · Threshold & Strength Endurance","t":"Long Run","s":"Long Run","det":"22 km easy + 6 km @ MP 4:58.","km":28,"pace":"5:45–6:30 /km · HR Z2 · MP 4:58"},{"w":30,"d":"2027-06-07","day":"Senin","ph":"3 · Threshold & Strength Endurance","t":"Strength","s":"Strength A","det":"Maintenance 20': split squat 3×8, hip thrust 3×8, side plank 3×40\", single-leg RDL 3×8.","km":0,"pace":"—"},{"w":30,"d":"2027-06-08","day":"Selasa","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":30,"d":"2027-06-09","day":"Rabu","ph":"3 · Threshold & Strength Endurance","t":"Quality","s":"Tempo","det":"WU 2 km · 3×15' @4:48–4:55 / 3' jog · CD 2 km.","km":14,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":30,"d":"2027-06-10","day":"Kamis","ph":"3 · Threshold & Strength Endurance","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":30,"d":"2027-06-11","day":"Jumat","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":10,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":30,"d":"2027-06-12","day":"Sabtu","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":6,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":30,"d":"2027-06-13","day":"Minggu","ph":"3 · Threshold & Strength Endurance","t":"Long Run","s":"Long Run","det":"Easy steady Z2; tanpa target pace. Latih minum/gel di long run.","km":29,"pace":"5:45–6:30 /km · HR Z2"},{"w":31,"d":"2027-06-14","day":"Senin","ph":"3 · Threshold & Strength Endurance","t":"Strength","s":"Strength A","det":"Maintenance 20': split squat 3×8, hip thrust 3×8, side plank 3×40\", single-leg RDL 3×8.","km":0,"pace":"—"},{"w":31,"d":"2027-06-15","day":"Selasa","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":31,"d":"2027-06-16","day":"Rabu","ph":"3 · Threshold & Strength Endurance","t":"Quality","s":"Interval 800","det":"WU 2.5 km · 8×800 m @4:15–4:25 / jog 400 m · CD 2 km.","km":14,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":31,"d":"2027-06-17","day":"Kamis","ph":"3 · Threshold & Strength Endurance","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":31,"d":"2027-06-18","day":"Jumat","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":10,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":31,"d":"2027-06-19","day":"Sabtu","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":7,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":31,"d":"2027-06-20","day":"Minggu","ph":"3 · Threshold & Strength Endurance","t":"Long Run","s":"Long Run","det":"18 km easy + 10 km @ MP 4:58 + 2 km CD.","km":30,"pace":"5:45–6:30 /km · HR Z2 · MP 4:58"},{"w":32,"d":"2027-06-21","day":"Senin","ph":"3 · Threshold & Strength Endurance","t":"Strength","s":"Strength A","det":"Maintenance 20': split squat 3×8, hip thrust 3×8, side plank 3×40\", single-leg RDL 3×8.","km":0,"pace":"—"},{"w":32,"d":"2027-06-22","day":"Selasa","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":32,"d":"2027-06-23","day":"Rabu","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy + Strides (Deload)","det":"Easy + 6×20\" strides.","km":7,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":32,"d":"2027-06-24","day":"Kamis","ph":"3 · Threshold & Strength Endurance","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":32,"d":"2027-06-25","day":"Jumat","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":10,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":32,"d":"2027-06-26","day":"Sabtu","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":7,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":32,"d":"2027-06-27","day":"Minggu","ph":"3 · Threshold & Strength Endurance","t":"Long Run","s":"Long Run","det":"Easy santai, tanpa target pace (Deload).","km":21,"pace":"5:45–6:30 /km · HR Z2"},{"w":33,"d":"2027-06-28","day":"Senin","ph":"3 · Threshold & Strength Endurance","t":"Strength","s":"Strength A","det":"Maintenance 20': split squat 3×8, hip thrust 3×8, side plank 3×40\", single-leg RDL 3×8.","km":0,"pace":"—"},{"w":33,"d":"2027-06-29","day":"Selasa","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":33,"d":"2027-06-30","day":"Rabu","ph":"3 · Threshold & Strength Endurance","t":"Quality","s":"Tempo Panjang","det":"WU 2 km · 2×20' @4:48–4:55 / 3' jog · CD 2 km.","km":13,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":33,"d":"2027-07-01","day":"Kamis","ph":"3 · Threshold & Strength Endurance","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":33,"d":"2027-07-02","day":"Jumat","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":10,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":33,"d":"2027-07-03","day":"Sabtu","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":6,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":33,"d":"2027-07-04","day":"Minggu","ph":"3 · Threshold & Strength Endurance","t":"Long Run","s":"Long Run","det":"16 km easy + 12 km @ MP 4:58 + 2 km CD.","km":30,"pace":"5:45–6:30 /km · HR Z2 · MP 4:58"},{"w":34,"d":"2027-07-05","day":"Senin","ph":"3 · Threshold & Strength Endurance","t":"Strength","s":"Strength A","det":"Maintenance 20': split squat 3×8, hip thrust 3×8, side plank 3×40\", single-leg RDL 3×8.","km":0,"pace":"—"},{"w":34,"d":"2027-07-06","day":"Selasa","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":8,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":34,"d":"2027-07-07","day":"Rabu","ph":"3 · Threshold & Strength Endurance","t":"Quality","s":"Interval 1000","det":"WU 2.5 km · 6×1000 m @4:20 / jog 400 m · CD 2 km. Jaga form, jangan dipaksa.","km":13,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":34,"d":"2027-07-08","day":"Kamis","ph":"3 · Threshold & Strength Endurance","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":34,"d":"2027-07-09","day":"Jumat","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":10,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":34,"d":"2027-07-10","day":"Sabtu","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":7,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":34,"d":"2027-07-11","day":"Minggu","ph":"3 · Threshold & Strength Endurance","t":"Long Run","s":"Long Run","det":"8 km easy + 4×(3 km MP / 1 km easy) + 6 km easy.","km":30,"pace":"5:45–6:30 /km · HR Z2 · MP 4:58"},{"w":35,"d":"2027-07-12","day":"Senin","ph":"3 · Threshold & Strength Endurance","t":"Strength","s":"Strength A","det":"Maintenance 20': split squat 3×8, hip thrust 3×8, side plank 3×40\", single-leg RDL 3×8.","km":0,"pace":"—"},{"w":35,"d":"2027-07-13","day":"Selasa","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":35,"d":"2027-07-14","day":"Rabu","ph":"3 · Threshold & Strength Endurance","t":"Quality","s":"Tempo Progresif","det":"WU 2 km · 50' progresif 4:55 → 4:40 · CD 2 km.","km":14,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":35,"d":"2027-07-15","day":"Kamis","ph":"3 · Threshold & Strength Endurance","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":35,"d":"2027-07-16","day":"Jumat","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":10,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":35,"d":"2027-07-17","day":"Sabtu","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":7,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":35,"d":"2027-07-18","day":"Minggu","ph":"3 · Threshold & Strength Endurance","t":"Long Run","s":"Long Run","det":"16 km easy + 14 km @ MP 4:58 + 2 km CD.","km":32,"pace":"5:45–6:30 /km · HR Z2 · MP 4:58"},{"w":36,"d":"2027-07-19","day":"Senin","ph":"3 · Threshold & Strength Endurance","t":"Strength","s":"Strength A","det":"Maintenance 20': split squat 3×8, hip thrust 3×8, side plank 3×40\", single-leg RDL 3×8.","km":0,"pace":"—"},{"w":36,"d":"2027-07-20","day":"Selasa","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":36,"d":"2027-07-21","day":"Rabu","ph":"3 · Threshold & Strength Endurance","t":"Quality","s":"Fartlek (Deload)","det":"WU 2 km · 6×(1' @4:30 / 1'30\" easy) · CD 2 km.","km":8,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":36,"d":"2027-07-22","day":"Kamis","ph":"3 · Threshold & Strength Endurance","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":36,"d":"2027-07-23","day":"Jumat","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":10,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":36,"d":"2027-07-24","day":"Sabtu","ph":"3 · Threshold & Strength Endurance","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":7,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":36,"d":"2027-07-25","day":"Minggu","ph":"3 · Threshold & Strength Endurance","t":"Long Run","s":"Long Run","det":"Easy santai, tanpa target pace (Deload).","km":22,"pace":"5:45–6:30 /km · HR Z2"},{"w":37,"d":"2027-07-26","day":"Senin","ph":"4 · Marathon Specific","t":"Strength","s":"Strength A","det":"Maintenance ringan 15–20': glute bridge, side plank, single-leg RDL 2×8, calf raise.","km":0,"pace":"—"},{"w":37,"d":"2027-07-27","day":"Selasa","ph":"4 · Marathon Specific","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":8,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":37,"d":"2027-07-28","day":"Rabu","ph":"4 · Marathon Specific","t":"Quality","s":"Tempo","det":"WU 2 km · 2×20' @4:48–4:52 / 3' jog · CD 2 km.","km":13,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":37,"d":"2027-07-29","day":"Kamis","ph":"4 · Marathon Specific","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":37,"d":"2027-07-30","day":"Jumat","ph":"4 · Marathon Specific","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":10,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":37,"d":"2027-07-31","day":"Sabtu","ph":"4 · Marathon Specific","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":7,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":37,"d":"2027-08-01","day":"Minggu","ph":"4 · Marathon Specific","t":"Long Run","s":"Long Run","det":"16 km easy + 12 km @ MP 4:58 + 2 km CD.","km":30,"pace":"5:45–6:30 /km · HR Z2 · MP 4:58"},{"w":38,"d":"2027-08-02","day":"Senin","ph":"4 · Marathon Specific","t":"Strength","s":"Strength A","det":"Maintenance ringan 15–20': glute bridge, side plank, single-leg RDL 2×8, calf raise.","km":0,"pace":"—"},{"w":38,"d":"2027-08-03","day":"Selasa","ph":"4 · Marathon Specific","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":38,"d":"2027-08-04","day":"Rabu","ph":"4 · Marathon Specific","t":"Quality","s":"Marathon Pace Run","det":"WU 2 km · 10 km @ MP 4:58 · CD 2 km.","km":14,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":38,"d":"2027-08-05","day":"Kamis","ph":"4 · Marathon Specific","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":38,"d":"2027-08-06","day":"Jumat","ph":"4 · Marathon Specific","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":10,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":38,"d":"2027-08-07","day":"Sabtu","ph":"4 · Marathon Specific","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":7,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":38,"d":"2027-08-08","day":"Minggu","ph":"4 · Marathon Specific","t":"Long Run","s":"Long Run","det":"14 km easy + 16 km @ MP 4:58 + 2 km CD.","km":32,"pace":"5:45–6:30 /km · HR Z2 · MP 4:58"},{"w":39,"d":"2027-08-09","day":"Senin","ph":"4 · Marathon Specific","t":"Strength","s":"Strength A","det":"Maintenance ringan 15–20': glute bridge, side plank, single-leg RDL 2×8, calf raise.","km":0,"pace":"—"},{"w":39,"d":"2027-08-10","day":"Selasa","ph":"4 · Marathon Specific","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":8,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":39,"d":"2027-08-11","day":"Rabu","ph":"4 · Marathon Specific","t":"Quality","s":"Interval Sharpener","det":"WU 2.5 km · 6×800 m @4:15–4:20 / jog 400 m · CD 2 km. Jaga ketajaman.","km":11,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":39,"d":"2027-08-12","day":"Kamis","ph":"4 · Marathon Specific","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":39,"d":"2027-08-13","day":"Jumat","ph":"4 · Marathon Specific","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":11,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":39,"d":"2027-08-14","day":"Sabtu","ph":"4 · Marathon Specific","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":8,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":39,"d":"2027-08-15","day":"Minggu","ph":"4 · Marathon Specific","t":"Long Run","s":"Long Run","det":"24 km easy + 4 km @ MP 4:58.","km":28,"pace":"5:45–6:30 /km · HR Z2 · MP 4:58"},{"w":40,"d":"2027-08-16","day":"Senin","ph":"4 · Marathon Specific","t":"Strength","s":"Strength A","det":"Maintenance ringan 15–20': glute bridge, side plank, single-leg RDL 2×8, calf raise.","km":0,"pace":"—"},{"w":40,"d":"2027-08-17","day":"Selasa","ph":"4 · Marathon Specific","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":9,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":40,"d":"2027-08-18","day":"Rabu","ph":"4 · Marathon Specific","t":"Easy","s":"Easy + Strides (Pekan Tes)","det":"Easy + 4×20\" strides. Jaga kaki segar untuk HM Test Race hari Minggu.","km":8,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":40,"d":"2027-08-19","day":"Kamis","ph":"4 · Marathon Specific","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":40,"d":"2027-08-20","day":"Jumat","ph":"4 · Marathon Specific","t":"Easy","s":"Medium-Long Easy","det":"Easy + 4×20\" strides. Jaga kaki segar untuk tes hari Minggu.","km":8,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":40,"d":"2027-08-21","day":"Sabtu","ph":"4 · Marathon Specific","t":"Easy","s":"Shakeout","det":"Shakeout 4 km santai + 3×20\" strides. Siapkan perlengkapan tes.","km":4,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":40,"d":"2027-08-22","day":"Minggu","ph":"4 · Marathon Specific","t":"Test Race","s":"HM Test Race","det":"WU 2 km · HM race effort (target 1:38–1:40, pace ≈4:40–4:44) · CD 1 km. Latih nutrisi & hidrasi race.","km":24,"pace":"HM pace ≈4:40–4:44 /km · HR Z3–Z4"},{"w":41,"d":"2027-08-23","day":"Senin","ph":"4 · Marathon Specific","t":"Strength","s":"Strength A","det":"Maintenance ringan 15–20': glute bridge, side plank, single-leg RDL 2×8, calf raise.","km":0,"pace":"—"},{"w":41,"d":"2027-08-24","day":"Selasa","ph":"4 · Marathon Specific","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":41,"d":"2027-08-25","day":"Rabu","ph":"4 · Marathon Specific","t":"Quality","s":"Marathon Pace Run","det":"WU 2 km · 12 km @ MP 4:58 · CD 2 km.","km":16,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":41,"d":"2027-08-26","day":"Kamis","ph":"4 · Marathon Specific","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":41,"d":"2027-08-27","day":"Jumat","ph":"4 · Marathon Specific","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":9,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":41,"d":"2027-08-28","day":"Sabtu","ph":"4 · Marathon Specific","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":6,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":41,"d":"2027-08-29","day":"Minggu","ph":"4 · Marathon Specific","t":"Long Run","s":"Long Run","det":"8 km easy + 3×(5 km MP / 1 km easy) + 4 km easy.","km":30,"pace":"5:45–6:30 /km · HR Z2 · MP 4:58"},{"w":42,"d":"2027-08-30","day":"Senin","ph":"4 · Marathon Specific","t":"Strength","s":"Strength A","det":"Maintenance ringan 15–20': glute bridge, side plank, single-leg RDL 2×8, calf raise.","km":0,"pace":"—"},{"w":42,"d":"2027-08-31","day":"Selasa","ph":"4 · Marathon Specific","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":8,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":42,"d":"2027-09-01","day":"Rabu","ph":"4 · Marathon Specific","t":"Quality","s":"Tempo","det":"WU 2 km · 3×12' @4:48–4:52 / 2' jog · CD 2 km.","km":12,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":42,"d":"2027-09-02","day":"Kamis","ph":"4 · Marathon Specific","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":42,"d":"2027-09-03","day":"Jumat","ph":"4 · Marathon Specific","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":12,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":42,"d":"2027-09-04","day":"Sabtu","ph":"4 · Marathon Specific","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":8,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":42,"d":"2027-09-05","day":"Minggu","ph":"4 · Marathon Specific","t":"Long Run","s":"Long Run","det":"12 km easy + 18 km @ MP 4:58 + 2 km CD. Long run MP terpanjang; latih gel, air, dan sepatu race.","km":32,"pace":"5:45–6:30 /km · HR Z2 · MP 4:58"},{"w":43,"d":"2027-09-06","day":"Senin","ph":"4 · Marathon Specific","t":"Strength","s":"Strength A","det":"Maintenance ringan 15–20': glute bridge, side plank, single-leg RDL 2×8, calf raise.","km":0,"pace":"—"},{"w":43,"d":"2027-09-07","day":"Selasa","ph":"4 · Marathon Specific","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":8,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":43,"d":"2027-09-08","day":"Rabu","ph":"4 · Marathon Specific","t":"Quality","s":"Marathon Pace Run","det":"WU 2 km · 10 km @ 4:55–4:58 · CD 2 km.","km":14,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":43,"d":"2027-09-09","day":"Kamis","ph":"4 · Marathon Specific","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":43,"d":"2027-09-10","day":"Jumat","ph":"4 · Marathon Specific","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":11,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":43,"d":"2027-09-11","day":"Sabtu","ph":"4 · Marathon Specific","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":7,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":43,"d":"2027-09-12","day":"Minggu","ph":"4 · Marathon Specific","t":"Long Run","s":"Long Run","det":"24 km easy + 6 km @ MP 4:58.","km":30,"pace":"5:45–6:30 /km · HR Z2 · MP 4:58"},{"w":44,"d":"2027-09-13","day":"Senin","ph":"4 · Marathon Specific","t":"Strength","s":"Strength A","det":"Maintenance ringan 15–20': glute bridge, side plank, single-leg RDL 2×8, calf raise.","km":0,"pace":"—"},{"w":44,"d":"2027-09-14","day":"Selasa","ph":"4 · Marathon Specific","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":44,"d":"2027-09-15","day":"Rabu","ph":"4 · Marathon Specific","t":"Quality","s":"Fartlek (Deload)","det":"WU 2 km · 6×(1' @4:30 / 1'30\" easy) · CD 2 km.","km":8,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":44,"d":"2027-09-16","day":"Kamis","ph":"4 · Marathon Specific","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":44,"d":"2027-09-17","day":"Jumat","ph":"4 · Marathon Specific","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":10,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":44,"d":"2027-09-18","day":"Sabtu","ph":"4 · Marathon Specific","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":7,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":44,"d":"2027-09-19","day":"Minggu","ph":"4 · Marathon Specific","t":"Long Run","s":"Long Run","det":"Easy santai, tanpa target pace (Deload).","km":22,"pace":"5:45–6:30 /km · HR Z2"},{"w":45,"d":"2027-09-20","day":"Senin","ph":"4 · Marathon Specific","t":"Strength","s":"Strength A","det":"Maintenance ringan 15–20': glute bridge, side plank, single-leg RDL 2×8, calf raise.","km":0,"pace":"—"},{"w":45,"d":"2027-09-21","day":"Selasa","ph":"4 · Marathon Specific","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":45,"d":"2027-09-22","day":"Rabu","ph":"4 · Marathon Specific","t":"Quality","s":"Marathon Pace Run","det":"WU 2 km · 12 km @ MP 4:55–4:58 · CD 2 km. Simulasi sepatu, kaos, dan nutrisi race.","km":16,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":45,"d":"2027-09-23","day":"Kamis","ph":"4 · Marathon Specific","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":45,"d":"2027-09-24","day":"Jumat","ph":"4 · Marathon Specific","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":10,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":45,"d":"2027-09-25","day":"Sabtu","ph":"4 · Marathon Specific","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":7,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":45,"d":"2027-09-26","day":"Minggu","ph":"4 · Marathon Specific","t":"Long Run","s":"Long Run","det":"14 km easy + 16 km @ MP 4:55–4:58 + 2 km CD. Gladi resik race: sepatu, kaos, gel, hidrasi.","km":32,"pace":"5:45–6:30 /km · HR Z2 · MP 4:58"},{"w":46,"d":"2027-09-27","day":"Senin","ph":"4 · Marathon Specific","t":"Strength","s":"Strength A","det":"Maintenance ringan 15–20': glute bridge, side plank, single-leg RDL 2×8, calf raise.","km":0,"pace":"—"},{"w":46,"d":"2027-09-28","day":"Selasa","ph":"4 · Marathon Specific","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":8,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":46,"d":"2027-09-29","day":"Rabu","ph":"4 · Marathon Specific","t":"Quality","s":"Tempo","det":"WU 2 km · 2×15' @4:48–4:52 / 3' jog · CD 2 km.","km":11,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":46,"d":"2027-09-30","day":"Kamis","ph":"4 · Marathon Specific","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat atau mobilitas ringan 10–15'. Tidur cukup.","km":0,"pace":"—"},{"w":46,"d":"2027-10-01","day":"Jumat","ph":"4 · Marathon Specific","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":10,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":46,"d":"2027-10-02","day":"Sabtu","ph":"4 · Marathon Specific","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":7,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":46,"d":"2027-10-03","day":"Minggu","ph":"4 · Marathon Specific","t":"Long Run","s":"Long Run","det":"10 km easy + 12 km @ MP 4:58 + 4 km easy. Long run MP terakhir.","km":26,"pace":"5:45–6:30 /km · HR Z2 · MP 4:58"},{"w":47,"d":"2027-10-04","day":"Senin","ph":"5 · Taper & Race","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat. Mobilitas ringan 10' (hip flexor, glute, ITB/TFL foam roll). Tanpa strength.","km":0,"pace":"—"},{"w":47,"d":"2027-10-05","day":"Selasa","ph":"5 · Taper & Race","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":5,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":47,"d":"2027-10-06","day":"Rabu","ph":"5 · Taper & Race","t":"Quality","s":"MP Sharpener (Taper)","det":"WU 2 km · 3×2 km @ MP 4:58 / jog 600 m · CD 2 km.","km":11,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":47,"d":"2027-10-07","day":"Kamis","ph":"5 · Taper & Race","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat. Mobilitas ringan 10'.","km":0,"pace":"—"},{"w":47,"d":"2027-10-08","day":"Jumat","ph":"5 · Taper & Race","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":7,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":47,"d":"2027-10-09","day":"Sabtu","ph":"5 · Taper & Race","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":5,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":47,"d":"2027-10-10","day":"Minggu","ph":"5 · Taper & Race","t":"Long Run","s":"Long Run","det":"12 km easy + 6 km @ MP 4:58 + 2 km CD.","km":20,"pace":"5:45–6:30 /km · HR Z2 · MP 4:58"},{"w":48,"d":"2027-10-11","day":"Senin","ph":"5 · Taper & Race","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat. Mobilitas ringan 10' (hip flexor, glute, ITB/TFL foam roll). Tanpa strength.","km":0,"pace":"—"},{"w":48,"d":"2027-10-12","day":"Selasa","ph":"5 · Taper & Race","t":"Easy","s":"Easy Run","det":"Easy Z2 santai.","km":4,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":48,"d":"2027-10-13","day":"Rabu","ph":"5 · Taper & Race","t":"Quality","s":"Sharpener (Taper)","det":"WU 2 km · 5×1' @4:25–4:30 / 2' easy · CD 2 km.","km":8,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":48,"d":"2027-10-14","day":"Kamis","ph":"5 · Taper & Race","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat. Mobilitas ringan 10'.","km":0,"pace":"—"},{"w":48,"d":"2027-10-15","day":"Jumat","ph":"5 · Taper & Race","t":"Easy","s":"Medium-Long Easy","det":"Easy–steady 5:35–6:15 /km; kaki segar untuk long run Minggu.","km":5,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":48,"d":"2027-10-16","day":"Sabtu","ph":"5 · Taper & Race","t":"Easy","s":"Easy + Strides","det":"Easy + 4×20\" strides (rileks).","km":3,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":48,"d":"2027-10-17","day":"Minggu","ph":"5 · Taper & Race","t":"Long Run","s":"Long Run","det":"Easy santai + 4×20\" strides di akhir.","km":14,"pace":"5:45–6:30 /km · HR Z2"},{"w":49,"d":"2027-10-18","day":"Senin","ph":"5 · Taper & Race","t":"Rest","s":"Rest + Mobilitas","det":"Istirahat. Mobilitas ringan 10' (hip flexor, glute, ITB/TFL foam roll). Tanpa strength.","km":0,"pace":"—"},{"w":49,"d":"2027-10-19","day":"Selasa","ph":"5 · Taper & Race","t":"Easy","s":"Easy Run","det":"Easy + 4×20\" strides, rileks.","km":6,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":49,"d":"2027-10-20","day":"Rabu","ph":"5 · Taper & Race","t":"Easy","s":"MP Sharpener (Race Week)","det":"WU 2 km · 3 km @ MP 4:58 · CD 2 km. Tujuannya mengingatkan kaki, bukan melelahkan.","km":7,"pace":"Main set sesuai detail · WU/CD 5:50–6:30 /km"},{"w":49,"d":"2027-10-21","day":"Kamis","ph":"5 · Taper & Race","t":"Rest","s":"Rest","det":"Istirahat total. Carbo-loading, tidur cukup, siapkan perlengkapan race.","km":0,"pace":"—"},{"w":49,"d":"2027-10-22","day":"Jumat","ph":"5 · Taper & Race","t":"Easy","s":"Easy","det":"Easy 5 km santai.","km":5,"pace":"5:50–6:30 /km · HR Z2 (128–158)"},{"w":49,"d":"2027-10-23","day":"Sabtu","ph":"5 · Taper & Race","t":"Easy","s":"Shakeout","det":"Shakeout 3 km santai + 3×20\" strides. Cek perlengkapan, nutrisi, bib.","km":3,"pace":"Easy 5:50–6:30 /km + strides ±4:10–4:20 (rileks)"},{"w":49,"d":"2027-10-24","day":"Minggu","ph":"5 · Taper & Race","t":"Race","s":"RACE DAY — FULL MARATHON","det":"Target utama sub 3:30 (4:58 /km), A-goal 3:25 (4:51 /km). Ikuti Race Plan: 10 km pertama konservatif, jangan start terlalu cepat.","km":42.195,"pace":"Lihat sheet Race Plan"}];
+const SNAP=[{"d":"2026-08-01","k":"R","n":"TB - JRF Started","km":10.0164,"sec":3312,"el":33},{"d":"2026-08-04","k":"S","n":"Strength / Mobility","km":0,"sec":2881,"el":0},{"d":"2026-08-05","k":"R","n":"TB-3 Easy Run Z2 5k","km":5.0261,"sec":1902,"el":4},{"d":"2026-08-06","k":"S","n":"Strength / Mobility","km":0,"sec":1813,"el":0},{"d":"2026-08-08","k":"R","n":"TB 5 - Long Run 90 Menit","km":16.3145,"sec":5783,"el":34},{"d":"2026-08-11","k":"R","n":"TB 6 - Easy Run 5k","km":5.0289,"sec":1804,"el":4},{"d":"2026-08-12","k":"R","n":"TB 7 - Easy 5k","km":5.0252,"sec":1886,"el":6},{"d":"2026-08-13","k":"R","n":"TB 8 - Easy 5k","km":5.1158,"sec":1976,"el":7},{"d":"2026-08-13","k":"R","n":"TB 8 - Stedy 5km 5:00","km":5.0077,"sec":1480,"el":7},{"d":"2026-08-14","k":"S","n":"Strength / Mobility","km":0,"sec":1384,"el":0},{"d":"2026-08-15","k":"R","n":"TB 10 - LR 15k","km":15.0241,"sec":5044,"el":34},{"d":"2026-08-16","k":"R","n":"TB 11 - Recovery Run 30 menit","km":3.386,"sec":1802,"el":18},{"d":"2026-08-17","k":"S","n":"Strength / Mobility","km":0,"sec":3866,"el":0},{"d":"2026-08-19","k":"R","n":"TB 13 - Easy Demot","km":1.6215,"sec":562,"el":2},{"d":"2026-08-20","k":"R","n":"TB 14 - Fartlek","km":10.5031,"sec":3447,"el":15},{"d":"2026-08-22","k":"R","n":"TB 15 - Early Birthday Run 25km","km":25.0084,"sec":8580,"el":61},{"d":"2026-08-25","k":"R","n":"TB 16 - Fartlek","km":11.0272,"sec":3371,"el":15},{"d":"2026-08-25","k":"S","n":"Strength / Mobility","km":0,"sec":2552,"el":0},{"d":"2026-08-29","k":"R","n":"TB JRF - LR 15k Progresif","km":15.0317,"sec":4965,"el":38},{"d":"2026-08-30","k":"R","n":"TB JRF - Recovery Run","km":6.0321,"sec":2315,"el":12},{"d":"2026-08-31","k":"S","n":"Strength / Mobility","km":0,"sec":3205,"el":0},{"d":"2026-09-01","k":"R","n":"TB JRF - Tempo 3km","km":6.1168,"sec":2100,"el":10},{"d":"2026-09-02","k":"R","n":"TB JRF - Easy Run 6k","km":6.0227,"sec":2193,"el":15},{"d":"2026-09-03","k":"R","n":"TB JRF - Interval 6x400","km":6.0499,"sec":1970,"el":11},{"d":"2026-09-05","k":"R","n":"TB JRF - LR 14km Progresif","km":14.0531,"sec":4731,"el":31},{"d":"2026-09-06","k":"S","n":"Strength / Mobility","km":0,"sec":1266,"el":0},{"d":"2026-09-07","k":"S","n":"Strength / Mobility","km":0,"sec":1989,"el":0},{"d":"2026-09-08","k":"R","n":"TB JRF - Tempo 4KM","km":7.0821,"sec":2308,"el":15},{"d":"2026-09-11","k":"S","n":"Strength / Mobility","km":0,"sec":912,"el":0},{"d":"2026-09-12","k":"R","n":"TB JRF - LR Fartlek 15k","km":15.1648,"sec":5400,"el":33},{"d":"2026-09-13","k":"R","n":"TB JRF - Easy Run","km":14.2803,"sec":5041,"el":29},{"d":"2026-09-20","k":"R","n":"TB JRF - Long Run","km":14.0539,"sec":4361,"el":53},{"d":"2026-09-21","k":"S","n":"Strength / Mobility","km":0,"sec":1453,"el":0},{"d":"2026-09-22","k":"R","n":"TB JRF - Tempo 3T","km":6.2249,"sec":2060,"el":21},{"d":"2026-09-23","k":"R","n":"TB JRF - Easy Run 6k","km":6.2102,"sec":2372,"el":23},{"d":"2026-09-24","k":"R","n":"TB JRF - Interval 500x8","km":6.7855,"sec":2321,"el":11},{"d":"2026-09-24","k":"R","n":"TB JRF - Cooling Down","km":1.2131,"sec":456,"el":4},{"d":"2026-09-26","k":"R","n":"TB JRF - Easy Progresif","km":10.0535,"sec":3507,"el":26},{"d":"2026-09-27","k":"R","n":"TB JRF - Longrun 15k","km":15.0183,"sec":5013,"el":81},{"d":"2026-09-28","k":"S","n":"Strength / Mobility","km":0,"sec":1366,"el":0},{"d":"2026-09-29","k":"S","n":"Strength / Mobility","km":0,"sec":2701,"el":0},{"d":"2026-09-30","k":"R","n":"TB JRF - Easy Run","km":5.729,"sec":1951,"el":15},{"d":"2026-10-03","k":"R","n":"TB JRF - DNF Pace Race","km":9.0625,"sec":2885,"el":31},{"d":"2026-10-05","k":"S","n":"Strength / Mobility","km":0,"sec":3474,"el":0},{"d":"2026-10-06","k":"R","n":"TB JRF - Easy Run","km":7.4037,"sec":2623,"el":16},{"d":"2026-10-07","k":"R","n":"TB JRF - Tempo Run 7K","km":10.0054,"sec":3033,"el":26},{"d":"2026-10-08","k":"S","n":"Strength / Mobility","km":0,"sec":1096,"el":0},{"d":"2026-10-11","k":"R","n":"TB JRF - Peak Long Run 20km","km":20.2044,"sec":6426,"el":102},{"d":"2026-10-12","k":"S","n":"Strength / Mobility","km":0,"sec":1991,"el":0},{"d":"2026-10-15","k":"S","n":"Strength / Mobility","km":0,"sec":2824,"el":0},{"d":"2026-10-17","k":"R","n":"TB JRF - Tapper Senam Jantung","km":6.02,"sec":2028,"el":13},{"d":"2026-10-18","k":"R","n":"TB JRF - Last Long Run","km":15.0296,"sec":4506,"el":68},{"d":"2026-10-19","k":"S","n":"Strength / Mobility","km":0,"sec":987,"el":0},{"d":"2026-10-24","k":"R","n":"HM Jakarta Running Festival 2026","km":21.3765,"sec":6231,"el":59},{"d":"2026-11-16","k":"S","n":"Project 2027 - Strength Training","km":0,"sec":1216,"el":0},{"d":"2026-11-17","k":"R","n":"Project - Easy Run 4k","km":4.1083,"sec":1460,"el":10},{"d":"2026-11-18","k":"R","n":"Project - 5k + Stride 4.10x20","km":5.1143,"sec":1760,"el":7}];
+const SNAP_EPOCH=Date.parse('2026-11-20T13:40:00Z');
+const SNAP_LABEL='20 Nov 2026';
+const RACE='2027-10-24';
+
+/* ---------- ikon ---------- */
+const P={
+ calendar:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+ flag:'<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>',
+ trend:'<path d="M3 17l6-6 4 4 8-8M15 7h6v6"/>',
+ mountain:'<path d="M3 20l6-11 4 6 3-4 5 9z"/>',
+ dumbbell:'<path d="M6 7v10M18 7v10M3 10v4M21 10v4M6 12h12"/>',
+ bolt:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+ moon:'<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>',
+ route:'<circle cx="6" cy="19" r="2.2"/><circle cx="18" cy="5" r="2.2"/><path d="M8.2 19H15a3.5 3.5 0 0 0 0-7H9a3.5 3.5 0 0 1 0-7h6.8"/>',
+ target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" fill="currentColor"/>',
+ trophy:'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/>',
+ layers:'<path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5"/>',
+ timer:'<circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.5v4l2.5 1.5M9.5 2.5h5"/>',
+ history:'<path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5M12 7.5V12l3 2"/>',
+ pulse:'<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
+ leaf:'<path d="M5 19c0-9 6-14 15-14 0 9-5 15-14 15zM5 19l8-8"/>',
+ gauge:'<path d="M4.5 18a9 9 0 1 1 15 0"/><path d="M12 14l4-5"/>',
+ sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/>'
+};
+const svgI=n=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${P[n]||''}</svg>`;
+const ic=(n,hue,sm)=>`<span class="ic ${sm?'sm ':''}${hue}">${svgI(n)}</span>`;
+const TYPE={Easy:['leaf','mint'],'Long Run':['mountain','sky'],Quality:['bolt','peach'],'Test Race':['gauge','rose'],Race:['flag','rose'],Strength:['dumbbell','violet'],Rest:['moon','sand']};
+const PHUE=['mint','sky','violet','peach','rose'];const PHUE_C=PHUE;
+function hydrate(){document.querySelectorAll('[data-ic]').forEach(e=>{e.innerHTML=svgI(e.getAttribute('data-ic'))})}
+
+/* ---------- tanggal ---------- */
+const MON=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+const MONF=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const DAYN=['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu'];
+const pd=s=>{const a=s.split('-').map(Number);return new Date(Date.UTC(a[0],a[1]-1,a[2]))};
+const ds=t=>t.toISOString().slice(0,10);
+const addD=(s,n)=>{const t=pd(s);t.setUTCDate(t.getUTCDate()+n);return ds(t)};
+const diffD=(a,b)=>Math.round((pd(a)-pd(b))/864e5);
+const fd=s=>{const t=pd(s);return t.getUTCDate()+' '+MON[t.getUTCMonth()]};
+const fdy=s=>fd(s)+' '+pd(s).getUTCFullYear();
+const mondayOf=s=>{const t=pd(s);t.setUTCDate(t.getUTCDate()-((t.getUTCDay()+6)%7));return ds(t)};
+const todayStr=()=>{const n=new Date();return n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0')};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const $=q=>document.querySelector(q);
+const f1=v=>(Math.round(v*10)/10).toFixed(1);
+const f0=v=>Math.round(v).toLocaleString('id-ID');
+const pf=sec=>{let m=Math.floor(sec/60),s=Math.round(sec-m*60);if(s===60){m++;s=0}return m+':'+String(s).padStart(2,'0')};
+const durF=sec=>{const m=Math.round(sec/60);return m>=60?Math.floor(m/60)+' j '+(m%60)+' mnt':m+' mnt'};
+
+/* ---------- data ---------- */
+let ACT=SNAP, syncInfo={t:SNAP_EPOCH,live:false};
+try{const c=JSON.parse(localStorage.getItem('fm27-sync')||'null');
+  if(c&&c.t>SNAP_EPOCH&&Array.isArray(c.acts)){ACT=c.acts;syncInfo={t:c.t,live:true}}}catch(e){}
+
+const WEEKS=[],byW={};
+PLAN.forEach(p=>{(byW[p.w]=byW[p.w]||[]).push(p)});
+Object.keys(byW).map(Number).sort((a,b)=>a-b).forEach(w=>{
+  const days=byW[w];
+  const lr=days.find(x=>x.t==='Long Run')||days.find(x=>x.t==='Test Race');
+  WEEKS.push({w,start:days[0].d,end:days[days.length-1].d,ph:days[0].ph,days,
+    plan:days.reduce((a,x)=>a+x.km,0),lr,deload:days.some(x=>/deload/i.test(x.s)),
+    nStr:days.filter(x=>x.t==='Strength').length,
+    q:days.filter(x=>x.t==='Quality'||x.t==='Test Race')});
+});
+const START=WEEKS[0].start;
+const PHASES=[];
+WEEKS.forEach(wk=>{let p=PHASES.find(x=>x.key===wk.ph);if(!p){const sp=wk.ph.split(' · ');p={key:wk.ph,n:sp[0],name:sp[1],weeks:[]};PHASES.push(p)}p.weeks.push(wk)});
+const TOTAL_PLAN=WEEKS.reduce((a,w)=>a+w.plan,0);
+
+let runKm,runSec,runList,strList;
+function indexActs(){
+  runKm={};runSec={};runList={};strList={};
+  ACT.forEach(a=>{
+    if(a.k==='R'){runKm[a.d]=(runKm[a.d]||0)+a.km;runSec[a.d]=(runSec[a.d]||0)+a.sec;(runList[a.d]=runList[a.d]||[]).push(a)}
+    else{(strList[a.d]=strList[a.d]||[]).push(a)}
+  });
+}
+const wkAct=wk=>{let s=0;for(let i=0;i<7;i++)s+=runKm[addD(wk.start,i)]||0;return s};
+const wkStr=wk=>{let s=0;for(let i=0;i<7;i++)s+=(strList[addD(wk.start,i)]||[]).length;return s};
+
+/* ---------- status ---------- */
+const LBL={ok:'Tercapai',near:'Hampir',miss:'Di bawah target',over:'Melebihi rencana',run:'Berjalan',today:'Hari ini',up:'Terjadwal',rest:'Istirahat',part:'Sebagian',extra:'Lari bonus'};
+const ICON={
+ ok:'<path d="M2.5 6.5l2.5 2.5 4.5-5.5" stroke-width="1.8"/>',
+ near:'<path d="M3 6h6" stroke-width="1.8"/>',
+ part:'<path d="M3 6h6" stroke-width="1.8"/>',
+ miss:'<path d="M3 3l6 6M9 3l-6 6" stroke-width="1.8"/>',
+ over:'<path d="M6 10V2.5M3 5.5l3-3 3 3" stroke-width="1.8"/>',
+ extra:'<path d="M6 10V2.5M3 5.5l3-3 3 3" stroke-width="1.8"/>',
+ run:'<circle cx="6" cy="6" r="2.2" fill="currentColor" stroke="none"/>',
+ today:'<circle cx="6" cy="6" r="3.2" stroke-width="1.6"/><circle cx="6" cy="6" r="1.2" fill="currentColor" stroke="none"/>',
+ up:'<circle cx="6" cy="6" r="3.2" stroke-width="1.5"/>',
+ rest:'<path d="M3.5 6h5" stroke-width="1.5"/>'};
+const chip=st=>`<span class="chip ${st==='part'?'near':st==='extra'?'over':st}"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[st]}</svg>${LBL[st]}</span>`;
+
+let TODAY=todayStr();
+function weekStatus(wk){
+  if(wk.start>TODAY)return 'up';
+  const r=wkAct(wk)/wk.plan, done=wk.end<TODAY;
+  if(r>1.1)return 'over';
+  if(r>=0.9)return 'ok';
+  if(!done)return 'run';
+  return r>=0.7?'near':'miss';
+}
+function dayStatus(p){
+  const d=p.d;
+  if(p.t==='Strength'){
+    if((strList[d]||[]).length)return 'ok';
+    return d<TODAY?'miss':d===TODAY?'today':'up';
+  }
+  if(p.t==='Rest'){return (runKm[d]||0)>0?'extra':'rest'}
+  const a=runKm[d]||0;
+  if(a>0){const r=a/p.km;return r>1.15?'over':r>=0.9?'ok':'part'}
+  return d<TODAY?'miss':d===TODAY?'today':'up';
+}
+function focusWeek(){
+  const cur=WEEKS.find(w=>w.start<=TODAY&&TODAY<=w.end);
+  if(cur)return cur.w;
+  return TODAY<START?1:WEEKS.length;
+}
+let selW=focusWeek();
+
+/* ---------- header ---------- */
+function renderHeader(){
+  const pre=TODAY<START, post=TODAY>RACE;
+  const d2s=diffD(START,TODAY), d2r=diffD(RACE,TODAY);
+  $('#lead').textContent=pre
+    ?`Program 49 minggu dimulai Senin ${fdy(START)}, ${d2s} hari lagi. Minggu pertama ada di bawah, lengkap dengan target tiap sesi.`
+    :post?'Program selesai. Terima kasih sudah konsisten sampai garis finis.'
+    :`Minggu ${WEEKS.find(w=>w.start<=TODAY&&TODAY<=w.end).w} dari 49. Race tinggal ${d2r} hari lagi.`;
+  const totalDays=diffD(RACE,START)+1;
+  const pos=Math.min(1,Math.max(0,diffD(TODAY,START)/totalDays));
+  let segs='',lbls='';
+  PHASES.forEach(p=>{
+    const a=p.weeks[0].start,b=addD(p.weeks[p.weeks.length-1].end,1);
+    const f=Math.min(1,Math.max(0,diffD(TODAY,a)/diffD(b,a)));
+    segs+=`<div class="seg ${PHUE[PHASES.indexOf(p)]}" style="flex:${p.weeks.length}" data-tip="<b>Fase ${p.n} · ${esc(p.name)}</b><br>Minggu ${p.weeks[0].w}–${p.weeks[p.weeks.length-1].w}"><i style="width:${(f*100).toFixed(1)}%"></i></div>`;
+    lbls+=`<span style="flex:${p.weeks.length}">${p.n}</span>`;
+  });
+  const lab=pre?`Hari ini · H-${d2s}`:post?'Selesai':`Hari ini`;
+  const edge=pos<0.12?'edge-l':pos>0.88?'edge-r':'';
+  $('#track').innerHTML=`<div class="pin ${edge}" style="left:${(pos*100).toFixed(2)}%">${lab}</div><div class="segs">${segs}</div><div class="seglbl">${lbls}</div><div class="dates"><span>${fdy(START)}</span><span>Race ${fdy(RACE)}</span></div>`;
+}
+
+/* ---------- KPI ---------- */
+function renderKPI(){
+  const pre=TODAY<START;
+  const cw=WEEKS.find(w=>w.w===focusWeek());
+  const a=wkAct(cw);
+  let progAct=0;Object.keys(runKm).forEach(d=>{if(d>=START)progAct+=runKm[d]});
+  const d2r=diffD(RACE,TODAY);
+  const st=weekStatus(cw);
+  const k=[];
+  k.push(`<div class="kpi"><div class="kh">${ic("calendar","sky",1)}<span class="eyebrow">Status program</span></div><div class="v">${pre?'Pra-program':'Minggu '+cw.w+' <small>/ 49</small>'}</div><div class="d">${pre?'Mulai '+fdy(START)+' · H-'+diffD(START,TODAY):'Fase '+cw.ph.replace(' · ',' · ')}</div></div>`);
+  k.push(`<div class="kpi"><div class="kh">${ic('route','mint',1)}<span class="eyebrow">${pre?'Target minggu 1':'Km minggu ini'}</span></div><div class="v num">${f1(a)} <small>/ ${f1(cw.plan)} km</small></div><div class="bar"><i style="width:${Math.min(100,a/cw.plan*100)}%"></i></div><div class="d">${chip(st)}</div></div>`);
+  k.push(`<div class="kpi"><div class="kh">${ic("trend","violet",1)}<span class="eyebrow">Total km program</span></div><div class="v num">${f0(progAct)} <small>/ ${f0(TOTAL_PLAN)} km</small></div><div class="bar"><i style="width:${Math.min(100,progAct/TOTAL_PLAN*100)}%"></i></div><div class="d">${(progAct/TOTAL_PLAN*100).toFixed(1)}% dari seluruh rencana</div></div>`);
+  k.push(`<div class="kpi"><div class="kh">${ic("flag","orange",1)}<span class="eyebrow">Menuju race</span></div><div class="v num">${Math.max(0,d2r)} <small>hari</small></div><div class="d">${Math.max(0,Math.ceil(d2r/7))} minggu · Minggu 24 Okt 2027</div></div>`);
+  $('#kpis').innerHTML=k.join('');
+}
+
+/* ---------- minggu fokus ---------- */
+function renderFocus(){
+  const wk=WEEKS[selW-1];
+  const st=weekStatus(wk), a=wkAct(wk), pct=a/wk.plan*100;
+  const firstUp=WEEKS.find(w=>w.start>TODAY);
+  const eyebrow=wk.start>TODAY?(firstUp&&firstUp.w===wk.w?'Latihan berikutnya':'Akan datang'):wk.end>=TODAY?'Minggu berjalan':'Sudah lewat';
+  const qNames=wk.q.map(x=>x.s).join(', ')||'Tidak ada';
+  const strDone=wkStr(wk);
+  const long=wk.lr?wk.lr.km:0;
+  const longAct=wk.lr?(runKm[wk.lr.d]||0):0;
+  const msg=st==='up'?`Mulai ${DAYN[0]} ${fd(wk.start)}`:st==='run'?`${f1(Math.max(0,wk.plan-a))} km lagi sampai target`:st==='ok'?'Target minggu ini terpenuhi':st==='over'?'Di atas rencana, tahan jangan menambah volume':st==='near'?'Sedikit di bawah target':'Volume jauh di bawah rencana';
+  let html=`
+  <div class="ph"><div class="hd">${ic("calendar","sky")}<div><div class="eyebrow">${eyebrow}</div><h2 style="margin-top:4px">Minggu ${wk.w} · ${fd(wk.start)} – ${fdy(wk.end)}</h2>
+    <p>${esc(PHASES.find(p=>p.key===wk.ph).name)}${wk.deload?' · minggu deload, volume sengaja turun':''}</p></div></div>
+    <div class="wknav"><button class="ibtn" id="pw" aria-label="Minggu sebelumnya" ${selW<=1?'disabled':''}><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2.5L4.5 7 9 11.5"/></svg></button>
+    <button class="btn" id="tw" type="button">Minggu fokus</button>
+    <button class="ibtn" id="nw" aria-label="Minggu berikutnya" ${selW>=WEEKS.length?'disabled':''}><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 2.5L9.5 7 5 11.5"/></svg></button></div></div>
+  <div class="stats">
+    <div class="stat"><b class="num">${f1(wk.plan)} <small>km</small></b><span>Target volume</span></div>
+    <div class="stat"><b class="num">${f1(a)} <small>km · ${Math.round(pct)}%</small></b><span>Aktual · ${chip(st)}</span></div>
+    <div class="stat"><b class="num">${long?f1(long)+' <small>km</small>':'—'}</b><span>Target long run${wk.lr&&longAct?' · aktual '+f1(longAct)+' km':''}</span></div>
+    <div class="stat"><b class="num">${strDone} <small>/ ${wk.nStr} sesi</small></b><span>Sesi strength</span></div>
+  </div>
+  <p class="note" style="margin-top:-6px">${msg}. Sesi kualitas minggu ini: ${esc(qNames.toLowerCase())}.</p>
+  <div class="days">`;
+  wk.days.forEach(p=>{
+    const s=dayStatus(p), isRun=p.t!=='Strength'&&p.t!=='Rest';
+    const dt=pd(p.d), dayName=DAYN[(dt.getUTCDay()+6)%7];
+    let tg='—', ac='—';
+    if(isRun){
+      tg=`<b>${f1(p.km)} km</b>`;
+      const k=runKm[p.d]||0;
+      ac=k>0?`<b>${f1(k)} km</b><span>${pf(runSec[p.d]/k)} /km</span>`:`<b style="color:var(--muted);font-weight:400">—</b>`;
+    }else if(p.t==='Strength'){
+      tg=`<b style="font-weight:400;color:var(--muted)">—</b>`;
+      const sl=strList[p.d]||[];
+      ac=sl.length?`<b>${durF(sl.reduce((x,y)=>x+y.sec,0))}</b>`:`<b style="color:var(--muted);font-weight:400">—</b>`;
+    }else{
+      tg=`<b style="font-weight:400;color:var(--muted)">—</b>`;
+      const k=runKm[p.d]||0; ac=k>0?`<b>${f1(k)} km</b>`:`<b style="color:var(--muted);font-weight:400">—</b>`;
+    }
+    const ty=TYPE[p.t]||['leaf','mint'];
+    html+=`<div class="day ${p.d===TODAY?'today':''}">
+      <div class="dn"><b>${dayName}</b><span>${fd(p.d)}</span></div>
+      <div class="ses"><b class="sn ${ty[1]}">${svgI(ty[0])}${esc(p.s)}</b>${p.det?`<p>${esc(p.det)}</p>`:''}${isRun&&p.pace&&p.pace!=='—'?`<small>${esc(p.pace)}</small>`:''}</div>
+      <div class="tg"><small class="lb">Target</small>${tg}</div>
+      <div class="ac"><small class="lb">Aktual</small>${ac}</div>
+      <div class="st">${chip(s)}</div></div>`;
+  });
+  html+='</div>';
+  $('#focus').innerHTML=html;
+  $('#pw').onclick=()=>{if(selW>1){selW--;renderFocus()}};
+  $('#nw').onclick=()=>{if(selW<WEEKS.length){selW++;renderFocus()}};
+  $('#tw').onclick=()=>{selW=focusWeek();renderFocus()};
+}
+
+/* ---------- grafik ---------- */
+function weeklyChart(){
+  const el=$('#c-weekly'),W=Math.max(300,el.clientWidth),H=250,m={l:32,r:4,t:24,b:44};
+  const pw=W-m.l-m.r,ph=H-m.t-m.b,n=WEEKS.length,step=pw/n,bw=Math.max(3,step*.68),ymax=75;
+  const y=v=>m.t+ph-v/ymax*ph;
+  let s=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Volume mingguan rencana dan aktual selama 49 minggu">`;
+  [0,25,50,75].forEach(v=>{s+=`<line class="${v?'grid':'axis'}" x1="${m.l}" x2="${W-m.r}" y1="${y(v)}" y2="${y(v)}"/><text x="${m.l-6}" y="${y(v)+3.5}" text-anchor="end">${v}</text>`});
+  const cw=focusWeek();
+  WEEKS.forEach((wk,i)=>{
+    const x=m.l+i*step+(step-bw)/2, a=wkAct(wk), st=weekStatus(wk), last=i===n-1;
+    const tip=`<b>Minggu ${wk.w}</b> · ${fd(wk.start)}–${fd(wk.end)}<br>Rencana ${f1(wk.plan)} km${wk.deload?' (deload)':''}<br>Aktual ${f1(a)} km${wk.start<=TODAY?' · '+LBL[st]:''}${last?'<br>Termasuk race 42,2 km':''}`;
+    s+=`<g data-tip="${esc(tip)}"><rect x="${m.l+i*step}" y="${m.t}" width="${step}" height="${ph+1}" fill="transparent"/>`;
+    s+=`<rect x="${x}" y="${y(wk.plan)}" width="${bw}" height="${y(0)-y(wk.plan)}" rx="2" style="fill:${last?'color-mix(in srgb,var(--s1) 50%,var(--surface))':'var(--pbar)'}"/>`;
+    if(a>0)s+=`<rect x="${x}" y="${y(Math.min(a,ymax))}" width="${bw}" height="${y(0)-y(Math.min(a,ymax))}" rx="2" fill="var(--s1)"/>`;
+    s+='</g>';
+    if(wk.w===1||(wk.w%4===0&&wk.w<=48))s+=`<text x="${x+bw/2}" y="${H-m.b+13}" text-anchor="middle">${wk.w}</text>`;
+  });
+  const fi=Math.max(0,Math.min(n-1,cw-1)), fx=m.l+fi*step+step/2;
+  const lab=TODAY<START?'Mulai':'Sekarang';
+  const anchor=fx>W-70?'end':fx<m.l+50?'start':'middle';
+  s+=`<line x1="${fx}" x2="${fx}" y1="${m.t-6}" y2="${y(0)}" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3 3"/><text x="${fx+(anchor==='start'?-3:anchor==='end'?3:0)}" y="${m.t-10}" text-anchor="${anchor}" style="fill:var(--accent)">${lab}</text>`;
+  s+=`<text x="${W-m.r}" y="${y(63.2)-6}" text-anchor="end" style="fill:var(--accent)">Race</text>`;
+  PHASES.forEach((p,k)=>{
+    const i0=p.weeks[0].w-1,i1=p.weeks[p.weeks.length-1].w-1,x0=m.l+i0*step+1,w=(i1-i0+1)*step-2;
+    s+=`<g data-tip="${esc('<b>Fase '+p.n+' · '+p.name+'</b><br>Minggu '+p.weeks[0].w+'–'+p.weeks[p.weeks.length-1].w+'<br>'+Math.round(Math.min(...p.weeks.map(x=>x.plan)))+'–'+Math.round(Math.max(...p.weeks.map(x=>x.plan)))+' km/minggu')}"><rect x="${x0}" y="${H-m.b+22}" width="${w}" height="16" rx="3" style="fill:${k%2?'var(--pbar2)':'var(--pbar)'}"/><text x="${x0+w/2}" y="${H-m.b+33.5}" text-anchor="middle" style="fill:#fff">${p.n}</text></g>`;
+  });
+  el.innerHTML=s+'</svg>';
+}
+function longChart(){
+  const el=$('#c-long'),W=Math.max(240,el.clientWidth),H=190,m={l:32,r:8,t:18,b:24};
+  const pw=W-m.l-m.r,ph=H-m.t-m.b,n=WEEKS.length,step=pw/n,ymax=35;
+  const y=v=>m.t+ph-v/ymax*ph, x=i=>m.l+i*step+step/2;
+  let s=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Jarak long run rencana dan aktual per minggu">`;
+  [0,10,20,30].forEach(v=>{s+=`<line class="${v?'grid':'axis'}" x1="${m.l}" x2="${W-m.r}" y1="${y(v)}" y2="${y(v)}"/><text x="${m.l-6}" y="${y(v)+3.5}" text-anchor="end">${v}</text>`});
+  const pts=[];let peak=null;
+  WEEKS.forEach((wk,i)=>{if(wk.lr&&wk.lr.t!=='Race'){pts.push([x(i),y(wk.lr.km)]);if(!peak||wk.lr.km>peak.km)peak={km:wk.lr.km,i,w:wk.w}}});
+  s+=`<polyline points="${pts.map(p=>p.map(v=>v.toFixed(1)).join(',')).join(' ')}" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-linejoin="round" opacity=".7"/>`;
+  WEEKS.forEach((wk,i)=>{
+    if(!wk.lr||wk.lr.t==='Race')return;
+    const act=runKm[wk.lr.d]||0;
+    const tip=`<b>Minggu ${wk.w}</b> · ${esc(wk.lr.s)}<br>Rencana ${f1(wk.lr.km)} km<br>Aktual ${act?f1(act)+' km':'belum ada'}`;
+    s+=`<g data-tip="${esc(tip)}"><rect x="${m.l+i*step}" y="${m.t}" width="${step}" height="${ph}" fill="transparent"/><circle cx="${x(i)}" cy="${y(wk.lr.km)}" r="2.4" fill="var(--muted)"/>`;
+    if(act>0)s+=`<circle cx="${x(i)}" cy="${y(act)}" r="4.5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>`;
+    s+='</g>';
+    if(wk.w===1||(wk.w%12===0))s+=`<text x="${x(i)}" y="${H-6}" text-anchor="middle">${wk.w}</text>`;
+  });
+  if(peak)s+=`<text x="${Math.min(x(peak.i),W-m.r-2)}" y="${y(peak.km)-8}" text-anchor="${x(peak.i)>W-60?'end':'middle'}" style="fill:var(--ink2)">${f0(peak.km)} km · minggu ${peak.w}</text>`;
+  el.innerHTML=s+'</svg>';
+}
+function baseChart(){
+  const el=$('#c-base'),W=Math.max(240,el.clientWidth),H=190,m={l:32,r:6,t:18,b:26};
+  const cur=mondayOf(TODAY<START?TODAY:START);
+  const ws=[];for(let d=mondayOf(ACT.length?ACT[0].d:'2026-08-01');d<cur&&ws.length<30;d=addD(d,7)){let k=0;for(let i=0;i<7;i++)k+=runKm[addD(d,i)]||0;ws.push({d,k})}
+  const pw=W-m.l-m.r,ph=H-m.t-m.b,n=Math.max(1,ws.length),step=pw/n,bw=Math.max(4,step*.66),ymax=50;
+  const y=v=>m.t+ph-v/ymax*ph;
+  let s=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Km per minggu di Strava sebelum program">`;
+  [0,25,50].forEach(v=>{s+=`<line class="${v?'grid':'axis'}" x1="${m.l}" x2="${W-m.r}" y1="${y(v)}" y2="${y(v)}"/><text x="${m.l-6}" y="${y(v)+3.5}" text-anchor="end">${v}</text>`});
+  const t1=WEEKS[0].plan, every=step<26?3:2;
+  ws.forEach((w,i)=>{
+    const x=m.l+i*step+(step-bw)/2;
+    s+=`<g data-tip="${esc('<b>'+fd(w.d)+' – '+fd(addD(w.d,6))+'</b><br>'+f1(w.k)+' km')}"><rect x="${m.l+i*step}" y="${m.t}" width="${step}" height="${ph}" fill="transparent"/>${w.k>0?`<rect x="${x}" y="${y(w.k)}" width="${bw}" height="${y(0)-y(w.k)}" rx="2" fill="var(--s1)"/>`:`<rect x="${x}" y="${y(0)-2}" width="${bw}" height="2" rx="1" fill="var(--plan2)"/>`}</g>`;
+    if(i%every===0)s+=`<text x="${x+bw/2}" y="${H-8}" text-anchor="middle">${fd(w.d)}</text>`;
+  });
+  s+=`<line x1="${m.l}" x2="${W-m.r}" y1="${y(t1)}" y2="${y(t1)}" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 3"/>`;
+  el.innerHTML=s+'</svg>';
+}
+
+/* ---------- pencapaian ---------- */
+function renderPhases(){
+  let h='';
+  const cw=focusWeek();
+  PHASES.forEach(p=>{
+    let ok=0,fin=0,cells='';
+    p.weeks.forEach(wk=>{
+      const st=weekStatus(wk), a=wkAct(wk);
+      if(wk.end<TODAY){fin++;if(st==='ok'||st==='over')ok++}
+      const tip=`<b>Minggu ${wk.w}</b> · ${fd(wk.start)}–${fd(wk.end)}<br>${f1(a)} / ${f1(wk.plan)} km · ${LBL[st]}`;
+      cells+=`<span class="cell ${st==='run'?'run':st==='up'?'':st} ${wk.w===cw&&TODAY>=START?'now':''}" data-tip="${esc(tip)}" role="img" aria-label="Minggu ${wk.w}: ${LBL[st]}"></span>`;
+    });
+    const lo=Math.round(Math.min(...p.weeks.map(x=>x.plan))),hi=Math.round(Math.max(...p.weeks.map(x=>x.plan)));
+    h+=`<div class="phase"><div class="pn">${ic("layers",PHUE[PHASES.indexOf(p)],1)}<div><b>Fase ${p.n} · ${esc(p.name)}</b><span class="m">Minggu ${p.weeks[0].w}–${p.weeks[p.weeks.length-1].w} · ${lo}–${hi} km/minggu</span></div></div><div class="cells">${cells}</div><div class="cnt">${ok} / ${p.weeks.length}</div></div>`;
+  });
+  $('#phases').innerHTML=h;
+}
+function renderChecks(){
+  const T=[['5K time trial','Minggu 12','2027-02-07','Target 22:00 atau lebih cepat','timer','mint'],['10K test race','Minggu 24','2027-05-02','Target sekitar 45:00','route','sky'],['HM test race','Minggu 40','2027-08-22','Target 1:38–1:40','gauge','violet'],['Full marathon','Minggu 49','2027-10-24','Target sub 3:30 (pace 4:58/km)','flag','rose']];
+  $('#checks').innerHTML=T.map(t=>{const d=diffD(t[2],TODAY);return `<div class="r">${ic(t[4],t[5],1)}<b>${t[0]}</b><span class="t">${t[1]} · ${fdy(t[2])} · ${t[3]}</span><div class="when">${d>0?'H-'+d:d===0?'Hari ini':'Lewat'}</div></div>`}).join('');
+  $('#goals').innerHTML=`<div class="sand"><b>3:35:00</b><span>C-goal · aman</span></div><div class="mint"><b>3:29:30</b><span>B-goal · utama</span></div><div class="violet"><b>3:25:00</b><span>A-goal · stretch</span></div>`;
+}
+function renderActs(){
+  const list=ACT.slice().sort((a,b)=>b.d.localeCompare(a.d)).slice(0,8);
+  $('#acts').innerHTML=list.map(a=>a.k==='R'
+    ?`<div class="act">${ic(/long|LR|peak|HM/i.test(a.n)||a.km>=14?'mountain':'route',/HM Jakarta/.test(a.n)?'rose':a.km>=14?'sky':'mint',1)}<div style="min-width:0"><span class="n" style="display:block" title="${esc(a.n)}">${esc(a.n)}</span><span class="d">${fd(a.d)}</span></div><span class="k">${f1(a.km)} km</span><span class="p">${pf(a.sec/a.km)} /km</span></div>`
+    :`<div class="act">${ic('dumbbell','violet',1)}<div style="min-width:0"><span class="n" style="display:block">${esc(a.n)}</span><span class="d">${fd(a.d)}</span></div><span class="k">${durF(a.sec)}</span><span class="p">strength</span></div>`).join('');
+  const last=ACT.length?ACT.slice().sort((a,b)=>b.d.localeCompare(a.d))[0].d:null;
+  $('#actSub').textContent=last?`Terakhir tercatat ${fdy(last)}. ${TODAY>START||last>=START?'':'Belum ada lari sejak HM JRF, sesuai masa pemulihan.'}`:'Belum ada aktivitas.';
+}
+function renderSync(msg,err){
+  const m=$('#syncMsg');m.className=err?'err':'';
+  if(msg){m.textContent=msg;return}
+  const t=new Date(syncInfo.t);
+  m.textContent=syncInfo.live?`Sinkron langsung · ${t.toLocaleString('id-ID',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}`:`Snapshot Strava · ${SNAP_LABEL}`;
+}
+function renderRules(){
+  $('#rules').textContent='Penilaian mingguan: tercapai bila km aktual 90% atau lebih dari rencana, hampir 70–89%, di bawah target kurang dari 70%, melebihi rencana di atas 110%, jadi naikkan volume bertahap, sekitar 10% per minggu. Penilaian harian: tercapai bila 90% atau lebih dari jarak rencana. Semua jenis lari Strava dihitung, strength dari sesi WeightTraining dan Workout. Sumber rencana: Project_FM_JRF_2027.xlsx.';
+}
+
+function renderAll(){
+  TODAY=todayStr();indexActs();
+  renderHeader();renderKPI();renderFocus();renderCharts();renderPhases();renderChecks();renderActs();renderSync();renderRules();
+}
+function renderCharts(){weeklyChart();longChart();baseChart()}
+
+/* ---------- tooltip ---------- */
+const tip=$('#tip');
+document.addEventListener('pointermove',e=>{
+  const t=e.target.closest&&e.target.closest('[data-tip]');
+  if(!t){tip.style.opacity=0;return}
+  tip.innerHTML=t.getAttribute('data-tip');tip.style.opacity=1;
+  const w=tip.offsetWidth,h=tip.offsetHeight;
+  let x=e.clientX+14,y=e.clientY+14;
+  if(x+w>innerWidth-8)x=e.clientX-w-14;
+  if(y+h>innerHeight-8)y=e.clientY-h-14;
+  tip.style.left=Math.max(8,x)+'px';tip.style.top=Math.max(8,y)+'px';
+});
+document.addEventListener('pointerleave',()=>{tip.style.opacity=0});
+document.addEventListener('scroll',()=>{tip.style.opacity=0},{passive:true});
+
+/* ---------- sinkron Strava (opsional, hanya di claude.ai) ---------- */
+async function syncStrava(){
+  const btn=$('#syncBtn');btn.disabled=true;renderSync('Menyinkronkan dengan Strava…');
+  try{
+    const mcp=window.claude&&window.claude.use?await window.claude.use('mcp'):null;
+    if(!mcp){renderSync('Sinkron langsung hanya jalan saat halaman dibuka di claude.ai. Data yang tampil adalah snapshot '+SNAP_LABEL+'.',true);return}
+    const all=[];let after=null,pages=0;
+    do{
+      const input={first:100,range_start:'2026-08-01T00:00:00',ordering:'StartDateLocalAsc',use_preferred_units:true};
+      if(after)input.after=after;
+      const r=await mcp.callTool('Strava','list_activities',input,{cache:false});
+      let p=r&&r.payload;if(typeof p==='string'){try{p=JSON.parse(p)}catch(e){p=null}}
+      if(!p||!Array.isArray(p.activities))throw {code:'shape'};
+      all.push(...p.activities);after=p.has_next_page?p.end_cursor:null;pages++;
+    }while(after&&pages<10);
+    const acts=[];
+    all.forEach(a=>{
+      const sm=a.summary||{},d=(a.start_local||'').slice(0,10);if(!d)return;
+      if(/^(Run|TrailRun|VirtualRun)$/.test(a.sport_type))acts.push({d,k:'R',n:a.name||'Lari',km:sm.distance||0,sec:sm.moving_time||0,el:sm.elevation_gain||0});
+      else if(/^(WeightTraining|Workout)$/.test(a.sport_type))acts.push({d,k:'S',n:a.name||'Strength',km:0,sec:sm.moving_time||0,el:0});
+    });
+    acts.sort((a,b)=>a.d.localeCompare(b.d));
+    ACT=acts;syncInfo={t:Date.now(),live:true};
+    try{localStorage.setItem('fm27-sync',JSON.stringify({t:syncInfo.t,acts}))}catch(e){}
+    renderAll();
+  }catch(e){
+    const c=e&&e.code;
+    const M={needs_reauth:'Koneksi Strava perlu disambungkan ulang di claude.ai: Settings, Connectors.',
+      server_not_connected:'Strava belum terhubung. Tambahkan di claude.ai: Settings, Connectors.',
+      not_in_manifest:'Akses ke Strava belum diizinkan untuk halaman ini.',
+      approval_required:'Sinkron butuh persetujuan Anda. Tekan tombol lagi dan pilih izinkan.',
+      consent_required:'Sinkron butuh persetujuan Anda. Tekan tombol lagi dan pilih izinkan.',
+      blocked_by_policy:'Organisasi Anda memblokir akses ke Strava.',
+      shape:'Strava membalas dengan format yang tidak dikenali. Data lama tetap dipakai.'};
+    renderSync((M[c]||'Sinkron gagal'+(c?' ('+c+')':'')+'. Data lama tetap dipakai.'),true);
+  }finally{btn.disabled=false}
+}
+$('#syncBtn').addEventListener('click',syncStrava);
+
+hydrate();renderAll();
+if('ResizeObserver' in window){let lw=0;new ResizeObserver(en=>{const w=Math.round(en[0].contentRect.width);if(w!==lw){lw=w;renderCharts()}}).observe($('.wrap'))}
+else addEventListener('resize',renderCharts);
+</script>
+
+</body></html>
